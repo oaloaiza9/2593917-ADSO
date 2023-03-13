@@ -1,10 +1,11 @@
 public class Ahorcado{
 
-	private String palabra;
+	private String palabra_secreta;
 	private char tablero [];
 
 	public Ahorcado(String palabra){
-		tablero = new char [palabra.length];
+		this.palabra_secreta = palabra;
+		this.tablero = new char [ palabra.length() ];
 	}
 
 	public void start(){
