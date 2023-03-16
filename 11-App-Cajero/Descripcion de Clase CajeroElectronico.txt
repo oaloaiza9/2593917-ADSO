@@ -1,0 +1,23 @@
+Clase CajeroElectronico:
+	Atributo:
+		- int => tipo lectura => 1.chip   2.NFC   3.Chip y NFC
+		- int => cantidad de dinero total
+		- int => Cantidad dinero disponible
+		- Cantidad de billetes disponibles de cada tipo ( 10.000 - 20.000 - 50.000 - 100.000)
+			int cant_10
+			int cant_20
+			int cant_50
+			int cant_100
+		- String Nombre del banco
+		- String [] Lista de trasacciones ( fecha-tipot-numtarj-monto-estado )
+		- String usuario_admin
+		- String clave_admin
+
+	Metodos:
+		- consultarSaldoTarjeta()
+		- transferirDineroaTarjeta()
+		- retirarDineroTarjeta()
+		- verHistorialTransTarjeta()
+		- cambiarClave()
+		- abastecerCajero()
+		- bloquearCajero()

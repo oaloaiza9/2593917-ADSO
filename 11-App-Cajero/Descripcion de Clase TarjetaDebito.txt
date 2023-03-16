@@ -1,0 +1,22 @@
+Clase TarjetaDebito:
+	Atributos:
+		- String -> Nombre del propietario
+		- String -> Numero tarjeta
+		- String -> Nombre del Banco
+		- int -> Cantidad de Dinero de la tarjeta
+		- int -> Cantidad de dinero permitido para retirar
+		- String [] -> Ultima transaccion ( fecha-tipot-monto-estado )
+		- byte -> Numero de intentos para bloqueo
+		- int Tipo de tarjeta => 1. chip
+								 2. NFC
+								 3. chip y NFC
+		- String -> Clave
+		- int -> Retiros gratuitos mensuales permitidos.
+		- int -> Cantidad de retiros actuales
+		- String estado -> ACTIVA - BLOQUEADA - SUSPENDIDA
+	Metodos:
+		disminuirSaldo
+		aumentarSaldo
+		getters
+		setters
+		
