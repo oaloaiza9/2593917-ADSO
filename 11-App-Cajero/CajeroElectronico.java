@@ -43,6 +43,8 @@ public class CajeroElectronico{
 				if ( this.cant_dinero_disponible >= valor ) {
 					tarjeta.disminuirSaldo(valor);
 					this.cant_dinero_disponible -= valor;
+					this.actualizarCantidadBilletes(valor);
+
 					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "OK:200");
 				}else{
 					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Dinero Cajero Insuficiente");
@@ -119,6 +121,12 @@ public class CajeroElectronico{
 			}
 		}
 		System.out.println("-----------------------------------------\n");
+	}
+
+	public void actualizarCantidadBilletes(int valor){
+		/*
+			Codigo del aprendiz
+		*/
 	}
 
 }
