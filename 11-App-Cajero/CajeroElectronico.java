@@ -127,6 +127,7 @@ public class CajeroElectronico{
 		/*
 			Codigo del aprendiz
 		*/
+		System.out.print("Testing comment");
 	}
 
 }
