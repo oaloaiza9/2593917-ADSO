@@ -1,3 +1,4 @@
+import java.util.Date;
 
 public class CajeroElectronico{
 
@@ -26,7 +27,33 @@ public class CajeroElectronico{
 		this.nombre_banco = nombre_banco;
 		this.user_admin = user_admin;
 		this.clave_admin = clave_admin;
-		this.lista_transacciones = new String[15];
+		this.lista_transacciones = new String[5];
+	}
+
+	public void retirarDineroTarjeta(TarjetaDebito tarjeta, String clave, int valor){
+		// Verificar franquicia
+			// Si.
+			// No.
+
+		// Verificar clave
+		if ( tarjeta.verificarPassword(clave) ) {
+			// Verificar si la tarjeta tiene el dinero suficiente
+			if (tarjeta.getSaldo() >= valor) {
+				// Verificar si el cajero tiene el dinero suficiente
+				if ( this.cant_dinero_disponible >= valor ) {
+					tarjeta.disminuirSaldo(valor);
+					this.cant_dinero_disponible -= valor;
+					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "OK:200");
+				}else{
+					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Dinero Cajero Insuficiente");
+				}
+			}else{
+				this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Saldo Tarjeta Insuficiente");
+			}
+		}else{
+			this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: clave");
+		}
+
 	}
 
 	public void actualizarTotalCajero(String usuario, String password, int valortotal, int cant_10, int cant_20, int cant_50, int cant_100){
@@ -40,15 +67,34 @@ public class CajeroElectronico{
 				this.cant_20 = cant_20;
 				this.cant_50 = cant_50;
 				this.cant_100 = cant_100;
-				// Registrar el proceso en el log
+				this.registrarLog("ABASTECER", "0000000000000000", valortotal, "OK:200");
 				System.out.println(" ===== OK - PROCESO REALIZADO CON EXITO =====");
 			}else{
+				this.registrarLog("ABASTECER", "0000000000000000", valortotal, "Error:404");
 				System.out.println(" ===== ERROR - EL TOTAL INGRESADO NO ES CONSISTENTE =====");
-				// Registrar el proceso en el log
 			}	
 		}else{
+			this.registrarLog("ABASTECER", "0000000000000000", valortotal, "Error:403");
 			System.out.println(" ===== ERROR - USUARIO O PASSWORD INCORRECTO =====");
-			// Registrar el proceso en el log
+		}
+	}
+
+	public void registrarLog(String tipo, String numero_t, int valorTotal,  String estado){
+		Date fecha = new Date();
+		String log = fecha.toString()+" || "+tipo+" || "+numero_t+" || "+String.valueOf(valorTotal)+" || "+estado;
+		
+		if (this.lista_transacciones[ this.lista_transacciones.length-1 ] == null) {
+			for(int i=0; i<this.lista_transacciones.length; i++){
+				if (this.lista_transacciones[i]==null) {
+					this.lista_transacciones[i] = log;
+					break;
+				}
+			}
+		}else{
+			for (int i=0; i<this.lista_transacciones.length-1; i++) {
+				this.lista_transacciones[i] = this.lista_transacciones[i+1];
+			}
+			this.lista_transacciones[this.lista_transacciones.length-1] = log;
 		}
 	}
 
@@ -68,7 +114,9 @@ public class CajeroElectronico{
 		System.out.println("-- clave_admin: "+this.clave_admin);
 		System.out.println("-- lista_transacciones: ");
 		for (int i=0; i<this.lista_transacciones.length; i++) {
-			System.out.println("     => "+this.lista_transacciones[i]);
+			if (this.lista_transacciones[i] != null) {
+				System.out.println("     => "+this.lista_transacciones[i]);
+			}
 		}
 		System.out.println("-----------------------------------------\n");
 	}
