@@ -123,11 +123,21 @@ public class CajeroElectronico{
 		System.out.println("-----------------------------------------\n");
 	}
 
-	public void actualizarCantidadBilletes(int valor){
+	public boolean actualizarCantidadBilletes(int valor){
 		/*
 			Codigo del aprendiz
 		*/
-		System.out.print("Testing comment");
+
+		int temp = 0;
+		int nuevo_valor = 0;
+
+		//Calcular billetes de 100k
+
+		//Calcular billetes de 50k
+		//Calcular billetes de 20k
+		//Calcular billetes de 10k
+
+
 	}
 
 }
