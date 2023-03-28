@@ -34,26 +34,31 @@ public class CajeroElectronico{
 		// Verificar franquicia
 			// Si.
 			// No.
-
-		// Verificar clave
-		if ( tarjeta.verificarPassword(clave) ) {
-			// Verificar si la tarjeta tiene el dinero suficiente
-			if (tarjeta.getSaldo() >= valor) {
-				// Verificar si el cajero tiene el dinero suficiente
-				if ( this.cant_dinero_disponible >= valor ) {
-					tarjeta.disminuirSaldo(valor);
-					this.cant_dinero_disponible -= valor;
-					this.actualizarCantidadBilletes(valor);
-
-					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "OK:200");
+		if(valor%10000 == 0){
+			// Verificar clave
+			if ( tarjeta.verificarPassword(clave) ) {
+				// Verificar si la tarjeta tiene el dinero suficiente
+				if (tarjeta.getSaldo() >= valor) {
+					// Verificar si el cajero tiene el dinero suficiente
+					if ( this.cant_dinero_disponible >= valor ) {
+						if ( this.actualizarCantidadBilletes(valor) ) {
+							tarjeta.disminuirSaldo(valor);
+							this.cant_dinero_disponible -= valor;
+							this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "OK:200");
+						}else{
+							this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error:No hay billetes suficientes para el monto solicitado.");
+						}
+					}else{
+						this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Dinero Cajero Insuficiente");
+					}
 				}else{
-					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Dinero Cajero Insuficiente");
+					this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Saldo Tarjeta Insuficiente");
 				}
 			}else{
-				this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Saldo Tarjeta Insuficiente");
+				this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: clave");
 			}
 		}else{
-			this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: clave");
+			this.registrarLog("RETIRO", tarjeta.getNumero(), valor, "Error: Valor debe ser multiplo de 10.000");
 		}
 
 	}
@@ -124,20 +129,82 @@ public class CajeroElectronico{
 	}
 
 	public boolean actualizarCantidadBilletes(int valor){
-		/*
-			Codigo del aprendiz
-		*/
-
-		int temp = 0;
 		int nuevo_valor = 0;
 
-		//Calcular billetes de 100k
+		// Calcular billetes de $100.000
+		int temp_100 = valor/100000;
+		if (this.cant_100>=temp_100) {
+			nuevo_valor = valor - (temp_100*100000);
+		}else{
+			temp_100 = 0;
+		}
+		System.out.println("Billetes de 100: "+temp_100);
 
-		//Calcular billetes de 50k
-		//Calcular billetes de 20k
-		//Calcular billetes de 10k
+		// Calcular billetes de $ 50.000
+		int temp_50 = nuevo_valor/50000;
+		if(this.cant_50>=temp_50){
+			nuevo_valor = nuevo_valor - (temp_50*50000);
+		}else{
+			temp_50 = 0;
+		}
+		System.out.println("Billetes de 50: "+temp_50);
+
+		// Calcular billetes de $ 20.000
+		int temp_20 = nuevo_valor/20000;
+		if(this.cant_20>=temp_20){
+			nuevo_valor = nuevo_valor - (temp_20*20000);
+		}else{
+			temp_20 = 0;
+		}
+		System.out.println("Billetes de 20: "+temp_20);
+
+		// Calcular billetes de $ 10.000
+		int temp_10 = nuevo_valor/10000;
+		if(this.cant_10>=temp_10){
+			nuevo_valor = nuevo_valor - (temp_10*10000);
+		}else{
+			temp_10 = 0;
+		}
+		System.out.println("Billetes de 10: "+temp_10);
 
 
+		if (nuevo_valor==0) {
+			this.cant_100 -= temp_100;
+			this.cant_50 -= temp_50;
+			this.cant_20 -= temp_20;
+			this.cant_10 -= temp_10;
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public void consultarSaldoTarjeta(TarjetaDebito tarjeta, String clave){
+		//Verificacion de password
+		if(tarjeta.verificarPassword(clave)){
+			// System.out.print("xinxao");
+			this.registrarLog("CONSULTA DE SALDO",tarjeta.getNumero(), tarjeta.getSaldo(), "OK:200");
+			System.out.println(" ===== OK - =====");
+
+		}else{
+			// System.out.print("xinxao error");
+			this.registrarLog("CONSULTAR SALDO", tarjeta.getNumero(),0, "Error:404");
+			System.out.println(" ===== ERROR - 	LA CONTRASEÑA ES INCORRECTA =====");
+		}
+	}
+
+
+
+	public void cambiarClave(TarjetaDebito tarjeta, String clave, String newPassword){
+		//Verificacion de password
+		if(tarjeta.verificarPassword(clave)){
+			tarjeta.setPassword(newPassword);
+			this.registrarLog("CAMBIO DE CONTRASENA",tarjeta.getNumero(), 0, "OK:200");
+			System.out.println(" ===== OK - CAMBIO REALIZADO CON EXITO =====");
+		}else{
+			this.registrarLog("CAMBIO DE CONTRASEÑA", tarjeta.getNumero(),0, "Error:404");
+			System.out.println(" ===== ERROR - 	LA CONTRASENA ES INCORRECTA =====");
+		}
 	}
 
 }

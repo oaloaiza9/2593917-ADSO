@@ -8,9 +8,12 @@ public class Principal{
 		cj_01.imprimirDatosCajero();
 
 		TarjetaDebito tj_01 = new TarjetaDebito("1111222233334444", "Oscar Loaiza", "54321", 500000);
-		
+		cj_01.consultarSaldoTarjeta(tj_01,"54321");
 		cj_01.retirarDineroTarjeta(tj_01, "54321", 50000);
+		cj_01.cambiarClave(tj_01,"54321","235544");
 		cj_01.imprimirDatosCajero();
+
+
 
 	}
 }

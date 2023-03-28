@@ -39,6 +39,8 @@ public class TarjetaDebito{
 		return this.password.equals(password);
 	}
 
-
+	public void setPassword(String newPassword){
+		this.password = newPassword;
+	}
 
 }
