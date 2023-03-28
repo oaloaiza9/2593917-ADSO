@@ -206,5 +206,33 @@ public class CajeroElectronico{
 			System.out.println(" ===== ERROR - 	LA CONTRASENA ES INCORRECTA =====");
 		}
 	}
+	public void transferirDineroTarjeta(TarjetaDebito tarjeta, int cant_10, int cant_20, int cant_50, int cant_100){
+		int cantDinero=0;
+		int can10=cant_10*10000;
+		int can20=cant_20*20000;
+		int can50=cant_50*50000;
+		int can100=cant_100*100000;
+		cantDinero += can10+can20+can50+can100;
+		//añadiendo billetes al cajero
+		this.cant_dinero_disponible = cantDinero;
+		this.cant_10 += cant_10;
+		this.cant_20 += cant_20;
+		this.cant_50 += cant_50;
+		this.cant_100 += cant_100;
 
+		//añadimos el dinero a la tarjeta
+		tarjeta.setSaldo(cantDinero);
+
+		//Guardamos el log de la consignacion
+		this.registrarLog("CONSIGNACION A TARJETA",tarjeta.getNumero(), cantDinero, "OK:200");
+		System.out.println(" ===== OK - =====");
+	}
+
+	public void verHistorialTarjeta(TarjetaDebito tarjeta, String password){
+		if(tarjeta.verificarPassword(password)){
+			tarjeta.imprimirDatosTarjeta();
+		}else{
+			System.out.print("LA CONTRASENIA ES INCORRECTA");
+		}
+	}
 }
