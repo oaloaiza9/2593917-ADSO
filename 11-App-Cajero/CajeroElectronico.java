@@ -125,6 +125,7 @@ public class CajeroElectronico{
 				System.out.println("     => "+this.lista_transacciones[i]);
 			}
 		}
+		
 		System.out.println("-----------------------------------------\n");
 	}
 
@@ -177,6 +178,50 @@ public class CajeroElectronico{
 		}else{
 			return false;
 		}
+	}
+	public void consultarSaldoTarjeta(TarjetaDebito saldotar, String pass){
+		//objeto tarjeta recibe
+		if ( saldotar.verificarPassword(pass) ){
+			System.out.println("||-------------------------------------------------------------||");
+			System.out.println ("|| SALDO TARJETA "+ saldotar.getSaldo());
+			this.registrarLog("CONSULTAR SALDO : ", saldotar.getNumero(), 0, "OK:801");
+		}else{
+			System.out.println("||-------------------------------------------------------------||");
+			System.out.println(" ===== ERROR - PASSWORD INCORRECTO =====");
+			this.registrarLog("ERROR CONSULTAR SALDO", saldotar.getNumero(), 0, "Error: 802");
+		}
+	}
+	public void cambiarClave(TarjetaDebito cambiacla,String vieja_pass ,String new_passaword){
+		if(cambiacla.verificarPassword(vieja_pass)){
+			cambiacla.setPassaword(new_passaword);
+			System.out.println("||-------------------------------------------------------------||");
+			System.out.println("|| CAMBIO CLAVE EXITOSO ");
+			this.registrarLog(" CAMBIO CALVE : ", cambiacla.getNumero(), 0, "OK:805");
+			System.out.println("||-------------------------------------------------------------||");
+		}else{
+			System.out.println("||-------------------------------------------------------------||");
+			System.out.println("|| ERROR: 607 ");
+			this.registrarLog(" ERROR CAMBIO CALVE : ", cambiacla.getNumero(), 0, "OK:607");
+		}
+	}
+	public void consignarDineroTarjeta(TarjetaDebito consDinero,  int cant_10, int cant_20, int cant_50, int cant_100){
+		int valor_10k= cant_10*10000;
+		int valor_20k= cant_20*20000;
+		int valor_50k= cant_50*50000;
+		int valor_100k= cant_100*100000;
+		int sumavalor = valor_10k+valor_20k+valor_50k+valor_100k;
+
+		this.cant_10+=cant_10;
+		this.cant_20+=cant_20;
+		this.cant_50+=cant_50;
+		this.cant_100+=cant_100;
+		
+		consDinero.setAumentarTarjeta(sumavalor);
+
+		System.out.println("||-------------------------------------------------||");
+		System.out.println("||SUMA "+ sumavalor);
+		System.out.println("||-------------------------------------------------||");
+
 	}
 
 }
