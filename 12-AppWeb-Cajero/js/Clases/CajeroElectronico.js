@@ -1,4 +1,5 @@
 class CajeroElectronico{
+	
 	constructor(tipo_lectura, capacidad_total, cant_dinero_disponible, cant_10, cant_20, cant_50, cant_100, nombre_banco, user_admin, clave_admin){
 		this.tipo_lectura = tipo_lectura;
 		this.capacidad_total = capacidad_total;

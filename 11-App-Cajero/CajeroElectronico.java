@@ -192,6 +192,7 @@ public class CajeroElectronico{
 			this.registrarLog("ERROR CONSULTAR SALDO", saldotar.getNumero(), 0, "Error: 802");
 		}
 	}
+
 	public void cambiarClave(TarjetaDebito cambiacla,String vieja_pass ,String new_passaword){
 		if(cambiacla.verificarPassword(vieja_pass)){
 			cambiacla.setPassaword(new_passaword);
@@ -205,6 +206,7 @@ public class CajeroElectronico{
 			this.registrarLog(" ERROR CAMBIO CALVE : ", cambiacla.getNumero(), 0, "OK:607");
 		}
 	}
+
 	public void consignarDineroTarjeta(TarjetaDebito consDinero,  int cant_10, int cant_20, int cant_50, int cant_100){
 		int valor_10k= cant_10*10000;
 		int valor_20k= cant_20*20000;
@@ -222,7 +224,6 @@ public class CajeroElectronico{
 		System.out.println("||-------------------------------------------------||");
 		System.out.println("||SUMA "+ sumavalor);
 		System.out.println("||-------------------------------------------------||");
-
 	}
 
 }

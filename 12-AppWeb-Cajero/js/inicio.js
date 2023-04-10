@@ -3,18 +3,18 @@ let cajero_seleccionado = null;
 
 window.onload = function(){
 	let cj_01 = new CajeroElectronico(3, 250000000,  1500000,  50,  50, 0, 0, "BancoSena", "andres9649", "12345");
-	let cj_02 = new CajeroElectronico(3, 250000000, 50000000, 100, 500, 600, 90, "Bancolombia", "juan12345", "12345");		
-	let cj_03 = new CajeroElectronico(3, 100000000, 0, 0, 0, 0, 0, "Davivienda", "jose54321", "12345");
-	let cj_04 = new CajeroElectronico(3, 100000000, 0, 0, 0, 0, 0, "BBVA", "ana67890", "12345");
-	let cj_05 = new CajeroElectronico(3,  90000000, 0, 0, 0, 0, 0, "BancoSena", "pacho23456", "12345");
+	let cj_02 = new CajeroElectronico(3, 10000000, 100000, 10, 0, 0, 0, "Davivienda", "camilo12345", "12345");
 
 	lista_cajeros.push(cj_01);
 	lista_cajeros.push(cj_02);
-	lista_cajeros.push(cj_03);
-	lista_cajeros.push(cj_04);
-	lista_cajeros.push(cj_05);
 
 	renderizarCajeros();
+}
+
+function teclado(){
+	valor = document.getElementById("input_capacidad_total").value;
+	valor = "$ " + valor.replaceAll("$ ", "");
+	document.getElementById("input_capacidad_total").value = valor;
 }
 
 function abrirModalCrearCajero(){
