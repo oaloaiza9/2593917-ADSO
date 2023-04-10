@@ -34,9 +34,18 @@ public class TarjetaDebito{
 	public String getNumero(){
 		return this.numero;
 	}
+	public void setPassaword(String new_passaword){
+		this.password = new_passaword;
+	}
+	public String getPassaword(){
+		return this.password;
+	}
 
 	public boolean verificarPassword(String password){
 		return this.password.equals(password);
+	}
+	public void setAumentarTarjeta(int sumavalor){
+		this.saldo+=sumavalor;
 	}
 
 
