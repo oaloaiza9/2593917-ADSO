@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>App Cajero</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		
+		<script src="./js/Clases/CajeroElectronico.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/inicio.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="container-fluid p-3 vh-100">
+			<div class="col-12 row m-0 h-100">
+				<div class="col-8 border m-0 me-2 p-2">
+					<div class="col-12 m-0 mb-2 p-0 row">
+						<div class="col-9 m-0 p-0">
+							<h4>Listado Cajeros: </h4>
+						</div>
+						<div class="col m-0 p-0">
+							<button class="col-12 btn btn-primary" onclick="abrirModalCrearCajero()"><i class="fa-solid fa-plus"></i> <b>CREAR CAJERO</b></button>
+						</div>
+					</div>
+					<div id="listaCajeros" class="contentPrincipal col-12 row m-0 p-0">
+						<!-- Espacio para crear los cajeros de forma Dinamica -->
+					</div>
+				</div>
+				<div class="col border m-0 ms-2 p-2">
+					<div class="col-12 m-0 mb-2 p-0 row">
+						<div class="col-7 m-0 p-0">
+							<h4>Listado Tarjetas: </h4>
+						</div>
+						<div class="col m-0 p-0">
+							<button class="col-12 btn btn-primary" onclick="abrirModalCrearTarjeta()"><i class="fa-solid fa-plus"></i> <b>CREAR TARJETA</b></button>
+						</div>
+					</div>
+					<div class="contentPrincipal col-12 row m-0 p-0">
+
+						<div class="col-12 m-0 mb-2 p-2 border rounded bg-light">
+							<table class="table">
+								<tbody>
+									<tr>
+										<td class="col-3">Numero: </td>
+										<td class="col h5"> XXXX-XXXX-XXXX-XXXX</td>
+									</tr>
+									<tr>
+										<td class="col-3 p-0 px-2">Titular: </td>
+										<td class="col p-0 px-2"> XXXX XXXX XXXX XXXX</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="row m-0 p-0 justify-content-end">
+								<div class="col-4 m-0 p-0">
+									<button class="col-12 btn btn-outline-primary"><i class="fa-regular fa-file-lines"></i> Detalle</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="crearCajero" tabindex="-1" aria-hidden="true">
+		  <div class="modal-dialog modal-lg	">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">CREAR CAJERO ELECTRONICO</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		       	<div class="col-12 row m-0 p-0">
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> Tipo: </b></label>
+		       			<select id="input_tipo_lectura" class="form-control">
+		       				<option value="----">----</option>
+		       				<option value="1">CHIP</option>
+		       				<option value="2">NFC</option>
+		       				<option value="3">CHIP y NFC</option>
+		       			</select>
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> capacidad total: </b></label>
+		       			<input id="input_capacidad_total" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> cant dinero disponible: </b></label>
+		       			<input id="input_cant_dinero_disponible" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> cant 10: </b></label>
+		       			<input id="input_cant_10" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> cant 20: </b></label>
+		       			<input id="input_cant_20" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> cant 50: </b></label>
+		       			<input id="input_cant_50" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> cant 100: </b></label>
+		       			<input id="input_cant_100" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> nombre banco: </b></label>
+		       			<input id="input_nombre_banco" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> user admin: </b></label>
+		       			<input id="input_user_admin" class="form-control" type="text">
+		       		</div>
+		       		<div class="col-6 mb-2">
+		       			<label class="form-label m-0"><b> clave admin: </b></label>
+		       			<input id="input_clave_admin" class="form-control" type="text">
+		       		</div>
+		       	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+		        <button onclick="registrarCajero()" type="button" class="btn btn-primary">Registrar Cajero</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="modal fade" id="crearTarjeta" tabindex="-1" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">CREAR TARJETA</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+	</body>
+</html>
+

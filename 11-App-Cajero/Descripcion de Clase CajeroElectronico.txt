@@ -14,10 +14,11 @@ Clase CajeroElectronico:
 		- String clave_admin
 
 	Metodos:
-		- consultarSaldoTarjeta()
-		- transferirDineroaTarjeta()
 		- retirarDineroTarjeta()
 		- verHistorialTransTarjeta()
-		- cambiarClave()
 		- abastecerCajero()
 		- bloquearCajero()
+
+		- consultarSaldoTarjeta(...)
+		- cambiarClave(...)
+		- consignarDineroaTarjeta(...)
