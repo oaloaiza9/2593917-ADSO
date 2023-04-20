@@ -7,13 +7,38 @@ import java.util.Locale;
 public class Facturador extends JFrame{
 
 	// Atributos
-	private String listaClientes [];
-	private String listaVendedores [];
+	private Persona listaClientes [];
+	private Persona listaVendedores [];
+	private JLabel etq_datos_cliente;
+	private JLabel etq_cedula_cliente;
+	private JLabel etq_nombres_cliente;
+	private JLabel etq_direccion_cliente;
+	private JLabel etq_datos_vendedor;
+	private JLabel etq_vendedor_cliente;
+	private JLabel etq_nombres_vendedor;
+	private JLabel etq_datos_productos;
+	private JLabel etq_id_producto;
+	private JLabel etq_nombre_producto;
+	private JLabel etq_cant_producto;
+	private JLabel etq_btn_producto;
+	private JLabel etq_resultado;
+	private JLabel etq_total;
+	private JTextField input_cedula_cliente;
+	private JTextField input_nombres_cliente;
+	private JTextField input_direccion_cliente;
+	private JTextField input_cedula_vendedor;
+	private JTextField input_nombres_vendedor;
+	private JTextField input_id_producto;
+	private JTextField input_nombre_producto;
+	private JTextField input_cant_producto;
+	private JButton btn_buscar_cliente;
+	private JButton btn_buscar_vendedor;
+	private JButton btn_add_producto;
 
 	// Metodos
-	public Facturador(){
-		this.listaClientes = new String [20];
-		this.listaVendedores = new String [20];
+	public Facturador(Persona[] listaClientes, Persona[] listaVendedores){
+		this.listaClientes = listaClientes;
+		this.listaVendedores = listaVendedores;
 
 		initComponent();
 	}
@@ -33,7 +58,7 @@ public class Facturador extends JFrame{
 		contPrincipal.setBorder( BorderFactory.createEmptyBorder(20, 20, 20, 10) );
 		GridBagConstraints restriccion = new GridBagConstraints();
 
-		JLabel etq_datos_cliente = new JLabel("DATOS CLIENTE:");
+		etq_datos_cliente = new JLabel("DATOS CLIENTE:");
 		etq_datos_cliente.setFont( new Font("Arial", Font.BOLD, 20) );
 		etq_datos_cliente.setBorder( BorderFactory.createEmptyBorder(0, 0, 10, 0) );
 		restriccion.gridy = 0;
@@ -45,7 +70,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_datos_cliente, restriccion );
 
-		JLabel etq_cedula_cliente = new JLabel("CEDULA:");
+		etq_cedula_cliente = new JLabel("CEDULA:");
 		restriccion.gridy = 1;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -55,7 +80,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_cedula_cliente, restriccion );
 
-		JTextField input_cedula_cliente = new JTextField();
+		input_cedula_cliente = new JTextField();
 		input_cedula_cliente.setBorder( BorderFactory.createEmptyBorder(0, 10, 0, 10) );
 		restriccion.gridy = 1;
 		restriccion.gridx = 1;
@@ -67,7 +92,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( input_cedula_cliente, restriccion );
 
-		JButton btn_buscar_cliente = new JButton("BUSCAR");
+		btn_buscar_cliente = new JButton("BUSCAR");
 		restriccion.gridy = 1;
 		restriccion.gridx = 3;
 		restriccion.gridheight = 1;
@@ -78,7 +103,7 @@ public class Facturador extends JFrame{
 		contPrincipal.add( btn_buscar_cliente, restriccion );
 
 
-		JLabel etq_nombres_cliente = new JLabel("NOMBRES:");
+		etq_nombres_cliente = new JLabel("NOMBRES:");
 		restriccion.gridy = 2;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -89,7 +114,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_nombres_cliente, restriccion );
 
-		JTextField input_nombres_cliente = new JTextField();
+		input_nombres_cliente = new JTextField();
 		input_nombres_cliente.setBorder( BorderFactory.createEmptyBorder(5, 10, 5, 10) );
 		restriccion.gridy = 2;
 		restriccion.gridx = 1;
@@ -101,7 +126,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( input_nombres_cliente, restriccion );
 
-		JLabel etq_direccion_cliente = new JLabel("DIRECCION:");
+		etq_direccion_cliente = new JLabel("DIRECCION:");
 		restriccion.gridy = 3;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -112,7 +137,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_direccion_cliente, restriccion );
 
-		JTextField input_direccion_cliente = new JTextField();
+		input_direccion_cliente = new JTextField();
 		input_direccion_cliente.setBorder( BorderFactory.createEmptyBorder(5, 10, 5, 10) );
 		restriccion.gridy = 3;
 		restriccion.gridx = 1;
@@ -128,7 +153,7 @@ public class Facturador extends JFrame{
 		/*
 			- Seccion vendedor
 		*/
-		JLabel etq_datos_vendedor = new JLabel("DATOS VENDEDOR:");
+		etq_datos_vendedor = new JLabel("DATOS VENDEDOR:");
 		etq_datos_vendedor.setFont( new Font("Arial", Font.BOLD, 20) );
 		etq_datos_vendedor.setBorder( BorderFactory.createEmptyBorder(0, 0, 10, 0) );
 		restriccion.gridy = 4;
@@ -141,7 +166,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_datos_vendedor, restriccion );
 
-		JLabel etq_vendedor_cliente = new JLabel("CEDULA:");
+		etq_vendedor_cliente = new JLabel("CEDULA:");
 		restriccion.gridy = 5;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -152,8 +177,8 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_vendedor_cliente, restriccion );
 
-		JTextField input_vendedor_cliente = new JTextField();
-		input_vendedor_cliente.setBorder( BorderFactory.createEmptyBorder(0, 10, 0, 10) );
+		input_cedula_vendedor = new JTextField();
+		input_cedula_vendedor.setBorder( BorderFactory.createEmptyBorder(0, 10, 0, 10) );
 		restriccion.gridy = 5;
 		restriccion.gridx = 1;
 		restriccion.gridheight = 1;
@@ -162,9 +187,9 @@ public class Facturador extends JFrame{
 		restriccion.weightx = 80;
 		restriccion.insets = new Insets(0, 10, 0, 10);
 		restriccion.fill = GridBagConstraints.BOTH;
-		contPrincipal.add( input_vendedor_cliente, restriccion );
+		contPrincipal.add( input_cedula_vendedor, restriccion );
 
-		JButton btn_buscar_vendedor = new JButton("BUSCAR");
+		btn_buscar_vendedor = new JButton("BUSCAR");
 		restriccion.gridy = 5;
 		restriccion.gridx = 3;
 		restriccion.gridheight = 1;
@@ -174,7 +199,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( btn_buscar_vendedor, restriccion );
 
-		JLabel etq_nombres_vendedor = new JLabel("NOMBRES:");
+		etq_nombres_vendedor = new JLabel("NOMBRES:");
 		restriccion.gridy = 6;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -185,7 +210,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_nombres_vendedor, restriccion );
 
-		JTextField input_nombres_vendedor = new JTextField();
+		input_nombres_vendedor = new JTextField();
 		input_nombres_vendedor.setBorder( BorderFactory.createEmptyBorder(5, 10, 5, 10) );
 		restriccion.gridy = 6;
 		restriccion.gridx = 1;
@@ -201,7 +226,7 @@ public class Facturador extends JFrame{
 		/*
 			- Seccion Productos
 		*/
-		JLabel etq_datos_productos = new JLabel("LISTA PRODUCTOS FACTURADOS:");
+		etq_datos_productos = new JLabel("LISTA PRODUCTOS FACTURADOS:");
 		etq_datos_productos.setFont( new Font("Arial", Font.BOLD, 20) );
 		etq_datos_productos.setBorder( BorderFactory.createEmptyBorder(0, 0, 10, 0) );
 		restriccion.gridy = 7;
@@ -214,7 +239,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_datos_productos, restriccion );
 
-		JLabel etq_id_producto = new JLabel("ID");
+		etq_id_producto = new JLabel("ID");
 		etq_id_producto.setHorizontalAlignment( JLabel.CENTER );
 		restriccion.gridy = 8;
 		restriccion.gridx = 0;
@@ -226,7 +251,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_id_producto, restriccion );
 
-		JLabel etq_nombre_producto = new JLabel("NOMBRE");
+		etq_nombre_producto = new JLabel("NOMBRE");
 		etq_nombre_producto.setHorizontalAlignment( JLabel.CENTER );
 		restriccion.gridy = 8;
 		restriccion.gridx = 1;
@@ -238,7 +263,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_nombre_producto, restriccion );
 
-		JLabel etq_cant_producto = new JLabel("CANT.");
+		etq_cant_producto = new JLabel("CANT.");
 		etq_cant_producto.setHorizontalAlignment( JLabel.CENTER );
 		restriccion.gridy = 8;
 		restriccion.gridx = 2;
@@ -250,7 +275,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( etq_cant_producto, restriccion );
 
-		JLabel etq_btn_producto = new JLabel();
+		etq_btn_producto = new JLabel();
 		restriccion.gridy = 8;
 		restriccion.gridx = 3;
 		restriccion.gridheight = 1;
@@ -262,7 +287,7 @@ public class Facturador extends JFrame{
 		contPrincipal.add( etq_btn_producto, restriccion );
 
 
-		JTextField input_id_producto = new JTextField();
+		input_id_producto = new JTextField();
 		restriccion.gridy = 9;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -273,7 +298,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( input_id_producto, restriccion );
 
-		JTextField input_nombre_producto = new JTextField();
+		input_nombre_producto = new JTextField();
 		restriccion.gridy = 9;
 		restriccion.gridx = 1;
 		restriccion.gridheight = 1;
@@ -284,7 +309,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( input_nombre_producto, restriccion );
 
-		JTextField input_cant_producto = new JTextField();
+		input_cant_producto = new JTextField();
 		restriccion.gridy = 9;
 		restriccion.gridx = 2;
 		restriccion.gridheight = 1;
@@ -295,7 +320,7 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( input_cant_producto, restriccion );
 
-		JButton btn_add_producto = new JButton("ADD");
+		btn_add_producto = new JButton("ADD");
 		restriccion.gridy = 9;
 		restriccion.gridx = 3;
 		restriccion.gridheight = 1;
@@ -309,7 +334,7 @@ public class Facturador extends JFrame{
 
 
 
-		JLabel etq_resultado = new JLabel(" ---- ");
+		etq_resultado = new JLabel(" ---- ");
 		etq_resultado.setHorizontalAlignment( JLabel.RIGHT );
 		etq_resultado.setVerticalAlignment( JLabel.TOP );
 		etq_resultado.setFont( new Font("Arial", Font.BOLD, 10) );
@@ -326,7 +351,7 @@ public class Facturador extends JFrame{
 		restriccion.insets = new Insets(10, 0, 0, 10);
 		contPrincipal.add( etq_resultado, restriccion );
 
-		JLabel etq_total = new JLabel("Total: $ 0");
+		etq_total = new JLabel("Total: $ 0");
 		etq_total.setHorizontalAlignment( JLabel.RIGHT );
 		etq_total.setFont( new Font("Arial", Font.BOLD, 20) );
 		etq_total.setOpaque(true);
@@ -342,6 +367,11 @@ public class Facturador extends JFrame{
 		restriccion.insets = new Insets(0, 0, 0, 10);
 		contPrincipal.add( etq_total, restriccion );
 
+		this.input_nombres_cliente.setEnabled(false);
+		this.input_direccion_cliente.setEnabled(false);
+		deshabilitarInput(this.input_nombres_cliente);
+		deshabilitarInput(this.input_direccion_cliente);
+
 		add( contPrincipal );
 		setResizable(false);
 		setVisible(true);
@@ -350,7 +380,7 @@ public class Facturador extends JFrame{
 
 		ActionListener evento_01 = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				buscarCliente();
 			}
 		};
 		btn_buscar_cliente.addActionListener( evento_01 );
@@ -374,6 +404,41 @@ public class Facturador extends JFrame{
 		Double numero = Double.parseDouble(texto.replace(",","."));
 		NumberFormat formatoMoneda = NumberFormat.getCurrencyInstance(Locale.getDefault());
 		return formatoMoneda.format(numero).replaceAll(",00","");
+	}
+
+	public void buscarCliente(){
+		String texto = input_cedula_cliente.getText();
+		boolean encontrado = false;
+		for (int i=0; i<this.listaClientes.length; i++) {
+			if(this.listaClientes[i]!=null && this.listaClientes[i].getCedula().equalsIgnoreCase(texto)){
+				this.input_nombres_cliente.setText( this.listaClientes[i].getNombres() );
+				this.input_direccion_cliente.setText( this.listaClientes[i].getDireccion() );
+				encontrado = true;
+				break;
+			}
+		}
+
+		if(encontrado){
+			deshabilitarInput(this.input_nombres_cliente);
+			deshabilitarInput(this.input_direccion_cliente);
+			this.input_cedula_vendedor.requestFocus();
+		}else{
+			habilitarInput(this.input_nombres_cliente);
+			habilitarInput(this.input_direccion_cliente);
+			this.input_nombres_cliente.requestFocus();
+		}	
+	}
+
+	public void deshabilitarInput(JTextField input){
+		input.setEditable(false);
+		input.setEnabled(false);
+		input.setDisabledTextColor(Color.black);
+	}
+
+	public void habilitarInput(JTextField input){
+		input.setText("");
+		input.setEditable(true);
+		input.setEnabled(true);
 	}
 
 }
