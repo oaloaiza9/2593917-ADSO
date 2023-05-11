@@ -63,7 +63,17 @@ public class Triki extends JFrame{
                 MouseAdapter evento = new MouseAdapter(){
                     @Override
 	                public void mouseClicked(MouseEvent e) {
-	                    marcarCasilla( fila, columna);
+	                	if(this.turno == 1){
+	                    	boolean marcado = marcarCasilla(fila, columna);
+	                    	// Validar si hubo ganador
+	                    		// Si.
+	                    		// No.
+		                    	if(marcado){
+		                    		this.turno = 2;
+		                    		jugadaMaquina();
+		                    		// Validar si hubo ganador
+		                    	}
+	                	}
 	                }             
                 };
                 this.tablero_lbls[i][j].addMouseListener(evento);
@@ -91,17 +101,27 @@ public class Triki extends JFrame{
 		revalidate();
 	}
 
-	public void marcarCasilla(int fila, int columna){
+	public boolean marcarCasilla(int fila, int columna){
 		if( this.tablero_interno[fila][columna]=='-'){
 			char ficha = (this.turno==1)? 'X':'0';
 			this.tablero_interno[fila][columna] = ficha;
 			this.tablero_lbls[fila][columna].setForeground( (this.turno==1)? Color.black:Color.red );
-			this.turno = (this.turno%2)+1;
 			this.imprimirTablero();
+			return true;
 		}else{
 			System.out.println("La Posicion es invalida.");
+			return false;
 		}
+	}
 
+	public boolean validarGanador(){
+
+		return true;
+	}
+
+
+	public void jugadaMaquina(){
+		
 	}
 
 
