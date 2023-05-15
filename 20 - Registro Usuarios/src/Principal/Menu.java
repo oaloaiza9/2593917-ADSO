@@ -1,11 +1,19 @@
 package Principal;
 
+import java.awt.Toolkit;
 import javax.swing.*;
 
 public class Menu extends JFrame {
     
+    Persona listaPersonas [];
+    int indexPersona;
+    
     public Menu() {
+        this.listaPersonas = new Persona [100];
+        this.indexPersona = 0;
+        
         initComponents();
+        initAlternComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -53,12 +61,22 @@ public class Menu extends JFrame {
         btnCrearUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearUsuario.setText("Crear Usuario");
         btnCrearUsuario.setFocusable(false);
+        btnCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearUsuarioActionPerformed(evt);
+            }
+        });
 
         btnModificarUsuario.setBackground(new java.awt.Color(0, 0, 153));
         btnModificarUsuario.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         btnModificarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarUsuario.setText("Modificar Usuario");
         btnModificarUsuario.setFocusable(false);
+        btnModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnEliminarUsuario.setBackground(new java.awt.Color(0, 0, 153));
         btnEliminarUsuario.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -71,6 +89,11 @@ public class Menu extends JFrame {
         btnListarUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         btnListarUsuarios.setText("Listar Usuarios");
         btnListarUsuarios.setFocusable(false);
+        btnListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarUsuariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout contentPrincipalLayout = new javax.swing.GroupLayout(contentPrincipal);
         contentPrincipal.setLayout(contentPrincipalLayout);
@@ -117,6 +140,33 @@ public class Menu extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
+        System.out.println("Lista Personas: ");
+        for (int i=0; i<this.listaPersonas.length; i++) {
+            if (this.listaPersonas[i]!=null) {
+                System.out.println(i+" => "+this.listaPersonas[i].getCedula()+" - "+this.listaPersonas[i].getNombres()+" "+this.listaPersonas[i].getApellidos() );
+            }
+        }
+    }//GEN-LAST:event_btnListarUsuariosActionPerformed
+
+    private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
+        setVisible(false);
+        
+        CrearUsuario ventana = new CrearUsuario(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnCrearUsuarioActionPerformed
+
+    private void btnModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarUsuarioActionPerformed
+        ModificarUsuario ventana = new ModificarUsuario(this);
+        ventana.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_btnModificarUsuarioActionPerformed
+    
+    public void initAlternComponents(){
+        setLocationRelativeTo(null);
+        setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_almacenes.png") ) );
+    }
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -136,6 +136,9 @@
             <Property name="text" type="java.lang.String" value="Crear Usuario"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnModificarUsuario">
           <Properties>
@@ -151,6 +154,9 @@
             <Property name="text" type="java.lang.String" value="Modificar Usuario"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminarUsuario">
           <Properties>
@@ -181,6 +187,9 @@
             <Property name="text" type="java.lang.String" value="Listar Usuarios"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarUsuariosActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
