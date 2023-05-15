@@ -131,6 +131,16 @@ public class Buscaminas extends JFrame{
         add(contenedor);
         revalidate();
         setVisible(true);
+        
+        
+        ActionListener evento_happy = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reinicarJuego();
+            }
+        };
+        btn_happy.addActionListener(evento_happy);
+        
     }
  
     public void destaparCasilla(int fila, int columna){
@@ -141,9 +151,7 @@ public class Buscaminas extends JFrame{
             this.tablero[fila][columna].setDisabledIcon( new ImageIcon(img_blanco) );
             this.tablero[fila][columna].setEnabled(false);
 
-            // Completar Algoritmo
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            destaparCasillasAlrededor(fila, columna);
         }
         
         // Es un numero 
@@ -164,6 +172,34 @@ public class Buscaminas extends JFrame{
             // Completar Algoritmo
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            deshabilitarTablero();
+        }
+    }
+    
+    public void destaparCasillasAlrededor(int fila, int columna){
+        if(fila-1>=0 && columna-1>=0 && this.tablero[fila-1][columna-1].isEnabled() ){
+            destaparCasilla(fila-1, columna-1);
+        }
+        if(fila-1>=0 && this.tablero[fila-1][columna].isEnabled()){
+            destaparCasilla(fila-1, columna);
+        }
+        if(fila-1>=0 && columna+1<this.tablero[0].length && this.tablero[fila-1][columna+1].isEnabled()){
+            destaparCasilla(fila-1, columna+1);
+        }
+        if(columna-1>=0 && this.tablero[fila][columna-1].isEnabled()){
+            destaparCasilla(fila, columna-1);
+        }
+        if(columna+1<this.tablero[0].length && this.tablero[fila][columna+1].isEnabled()){
+            destaparCasilla(fila, columna+1);
+        }
+        if(fila+1<this.tablero[0].length && columna-1>=0 && this.tablero[fila+1][columna-1].isEnabled()){
+            destaparCasilla(fila+1, columna-1);
+        }
+        if(fila+1<this.tablero[0].length && this.tablero[fila+1][columna].isEnabled()){
+            destaparCasilla(fila+1, columna);
+        }
+        if(fila+1<this.tablero[0].length && columna+1<this.tablero[0].length && this.tablero[fila+1][columna+1].isEnabled()){
+            destaparCasilla(fila+1, columna+1);
         }
     }
     
@@ -234,6 +270,49 @@ public class Buscaminas extends JFrame{
             }
         }
         
+    }
+    
+    public void deshabilitarTablero(){
+        for (int i = 0; i<this.tablero.length; i++) {
+            for (int j = 0; j<this.tablero[0].length; j++) {
+                int fila = i;
+                int columna = j;
+                
+                // Es una casilla en blanco
+                if (this.tablero_interno[fila][columna]==0) {
+                    Image img_blanco = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_espacio.png") );
+                    img_blanco = img_blanco.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                    this.tablero[fila][columna].setDisabledIcon( new ImageIcon(img_blanco) );
+                    this.tablero[fila][columna].setEnabled(false);
+                }
+
+                // Es un numero 
+                if (this.tablero_interno[fila][columna]>=1 && this.tablero_interno[fila][columna]<=8) {
+                    Image img_numero = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_num_"+this.tablero_interno[fila][columna]+".png") );
+                    img_numero = img_numero.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                    this.tablero[fila][columna].setDisabledIcon( new ImageIcon(img_numero) );
+                    this.tablero[fila][columna].setEnabled(false);
+                }
+
+                // Es una mina
+                if (this.tablero_interno[fila][columna]==9) {
+                    Image img_bomba = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_bomba.png") );
+                    img_bomba = img_bomba.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                    this.tablero[fila][columna].setDisabledIcon( new ImageIcon(img_bomba) );
+                    this.tablero[fila][columna].setEnabled(false);
+                }
+            }
+        }
+    }
+    
+    public void reinicarJuego(){
+        for (int i = 0; i<this.tablero.length; i++) {
+            for (int j = 0; j<this.tablero[0].length; j++) {
+                this.tablero_interno[i][j] = 0;
+                this.tablero[i][j].setEnabled(true);
+            }
+        }
+        this.crearTablero();
     }
     
 }
