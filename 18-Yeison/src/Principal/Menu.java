@@ -29,7 +29,7 @@ public class Menu extends JFrame {
         btnListarUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Usuarios");
+        setTitle("Menu");
         setBackground(new java.awt.Color(255, 51, 51));
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
@@ -83,6 +83,11 @@ public class Menu extends JFrame {
         btnEliminarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarUsuario.setText("Eliminar Usuario");
         btnEliminarUsuario.setFocusable(false);
+        btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnListarUsuarios.setBackground(new java.awt.Color(0, 0, 153));
         btnListarUsuarios.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -141,16 +146,30 @@ public class Menu extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
-        System.out.println("Lista Personas: ");
-        for (int i=0; i<this.listaPersonas.length; i++) {
-            if (this.listaPersonas[i]!=null) {
-                System.out.println(i+" => "+this.listaPersonas[i].getCedula()+" - "+this.listaPersonas[i].getNombres()+" "+this.listaPersonas[i].getApellidos() );
-            }
-        }
+       setVisible(false);
+       
+       //ListarUsuarios ventana = new ListarUsuarios(this);
+       //ventana.setVisible(true);
+       
+        Persona listaClientes [] = new Persona[10];
+        Persona listaVendedores [] = new Persona[10];
+        Productos arrayProductos [] = new Productos[10];
+
+        listaClientes[0] = new Persona("108800", "Oscar Loaiza", "Calle 20", "", "", "");
+        listaClientes[1] = new Persona("108801", "Daniel Garcia", "Calle 19", "", "", "");
+        listaClientes[2] = new Persona("108802", "Juan Lopez", "Calle 18", "", "", "");
+        listaClientes[3] = new Persona("108803", "Catalina Mendez", "Calle 17", "", "", "");
+        listaClientes[4] = new Persona("108804", "Andres Lopez", "Calle 16", "", "", "");
+
+        listaVendedores[0] = new Persona("108800", "Oscar Loaiza", "", "", "", "");
+
+        arrayProductos[0] = new Productos("7121100001", "Arroz", 2000);
+        arrayProductos[1] = new Productos("7700304607808", "Aceite", 2000);
+        arrayProductos[2] = new Productos("7909189205998", "Atun", 2000);
+        arrayProductos[3] = new Productos("7700304670574", "Frijoles", 2000);
         
-        setVisible(false);
-        ListarUsuarios ventana = new ListarUsuarios(this);
-        ventana.setVisible(true);
+        Factura factura = new Factura(listaClientes, listaVendedores,arrayProductos);
+       
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
 
     private void btnCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearUsuarioActionPerformed
@@ -165,14 +184,18 @@ public class Menu extends JFrame {
         ventana.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btnModificarUsuarioActionPerformed
+
+    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
+        EliminarUsuario ventana = new EliminarUsuario(this);
+        ventana.setVisible(true);
+        setVisible(false);
+        
+        
+    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
     
     public void initAlternComponents(){
         setLocationRelativeTo(null);
         setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_almacenes.png") ) );
-    }
-    
-    public void alertCreacionUsuario(){
-        Alert alerta = new Alert("CORRECTO", "Se ha creado un nuevo usuario.", "success");
     }
     
     public static void main(String args[]) {

@@ -38,6 +38,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Usuarios");
 
         contentTitulo.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -71,6 +72,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqNombres.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         campoNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoNombres.setEnabled(false);
         campoNombres.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         etqApellidos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -79,6 +81,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqApellidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         campoApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoApellidos.setEnabled(false);
         campoApellidos.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         etqTelefono.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -87,6 +90,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqTelefono.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         campoTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoTelefono.setEnabled(false);
         campoTelefono.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         etqDireccion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -95,6 +99,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqDireccion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         campoDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoDireccion.setEnabled(false);
         campoDireccion.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         etqEmail.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -103,6 +108,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqEmail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         campoEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        campoEmail.setEnabled(false);
         campoEmail.setMargin(new java.awt.Insets(2, 5, 2, 5));
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 153));
@@ -119,6 +125,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         btnRegistrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("MODIFICAR");
+        btnRegistrar.setEnabled(false);
         btnRegistrar.setFocusable(false);
 
         btnRegistrar1.setBackground(new java.awt.Color(0, 0, 153));
@@ -127,7 +134,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         btnRegistrar1.setText("BUSCAR");
         btnRegistrar1.setFocusable(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Usuario encontrado:");
 
@@ -148,41 +155,40 @@ public class ModificarUsuario extends javax.swing.JFrame {
                 .addComponent(jSeparator1)
                 .addContainerGap())
             .addGroup(contentPrincipalLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(contentPrincipalLayout.createSequentialGroup()
-                                .addComponent(etqEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(contentPrincipalLayout.createSequentialGroup()
-                                    .addComponent(etqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(campoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(contentPrincipalLayout.createSequentialGroup()
-                                        .addComponent(etqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(contentPrincipalLayout.createSequentialGroup()
-                                        .addComponent(etqNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(campoNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(contentPrincipalLayout.createSequentialGroup()
-                                        .addComponent(etqApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(campoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(65, 65, 65)
+                .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(contentPrincipalLayout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCancelar)
+                            .addComponent(etqEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnRegistrar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentPrincipalLayout.createSequentialGroup()
+                                .addComponent(etqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(contentPrincipalLayout.createSequentialGroup()
+                                    .addComponent(etqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPrincipalLayout.createSequentialGroup()
+                                    .addComponent(etqNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(contentPrincipalLayout.createSequentialGroup()
+                                    .addComponent(etqApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(campoApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(contentPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(204, 204, 204)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegistrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(contentPrincipalLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentPrincipalLayout.setVerticalGroup(
@@ -195,9 +201,9 @@ public class ModificarUsuario extends javax.swing.JFrame {
                     .addComponent(btnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etqNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))

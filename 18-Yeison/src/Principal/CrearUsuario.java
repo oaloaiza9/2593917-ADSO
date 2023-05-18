@@ -4,9 +4,6 @@ package Principal;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class CrearUsuario extends javax.swing.JFrame {
@@ -43,7 +40,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Usuarios");
+        setTitle("Crear Usuario");
         setResizable(false);
 
         contentTitulo.setBackground(new java.awt.Color(0, 0, 102));
@@ -71,11 +68,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoCedula.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoCedula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         etqNombres.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqNombres.setText("Nombres:");
@@ -83,11 +75,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoNombres.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoNombres.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         etqApellidos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqApellidos.setText("Apellidos:");
@@ -95,11 +82,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoApellidos.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         etqTelefono.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqTelefono.setText("Teléfono:");
@@ -107,11 +89,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoTelefono.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         etqDireccion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqDireccion.setText("Dirección:");
@@ -119,11 +96,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoDireccion.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         etqEmail.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqEmail.setText("Email:");
@@ -131,11 +103,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         campoEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoEmail.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        campoEmail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                eventoKeyCampos(evt);
-            }
-        });
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 153));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -258,7 +225,14 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        String cedula = campoCedula.getText();
+        for (int i = 0; i < 50; i++) {
+            Persona temporal = new Persona("id_"+i, "Nombres_"+i, "Apellidos_"+i, "Telefono_"+i, "Direccion_"+i, "Email_"+i);
+            this.ventanaMenu.listaPersonas[ this.ventanaMenu.indexPersona ] = temporal;
+            this.ventanaMenu.indexPersona++;
+        }
+        btnCancelarActionPerformed(null);
+        
+        /* String cedula = campoCedula.getText();
         String nombres = campoNombres.getText();
         String apellidos = campoApellidos.getText();
         String direccion = campoDireccion.getText();
@@ -270,19 +244,11 @@ public class CrearUsuario extends javax.swing.JFrame {
             this.ventanaMenu.listaPersonas[ this.ventanaMenu.indexPersona ] = temporal;
             this.ventanaMenu.indexPersona++;
             
-            this.ventanaMenu.setVisible(true);
-            this.ventanaMenu.alertCreacionUsuario();
-            dispose();
+            btnCancelarActionPerformed(null);
         }else{
-            Alert alerta = new Alert("Datos Inválidos", "Todos los campos son obligatorios.", "error");
             validarTodosInputs();
-        }
+        }*/
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void eventoKeyCampos(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eventoKeyCampos
-        JTextField campo = (JTextField) evt.getSource();
-        validarInput(campo);
-    }//GEN-LAST:event_eventoKeyCampos
 
     public void validarTodosInputs(){
         validarInput(campoEmail);
@@ -295,14 +261,12 @@ public class CrearUsuario extends javax.swing.JFrame {
     
     public void validarInput(JTextField campo){
         if (campo.getText().equals("")) {
-            Border borderColor = new LineBorder(Color.RED, 1, true);
-            Border borderPadding = new EmptyBorder(2,5,2,5);
-            Border borderRojo = new CompoundBorder(borderColor, borderPadding);
-            campo.setBorder(borderRojo);
+            LineBorder borderFalse = new LineBorder(Color.RED, 1, true);
+            campo.setBorder(borderFalse);
             campo.requestFocus();
         }else{
-            JTextField referencia = new JTextField();
-            campo.setBorder( referencia.getBorder() );
+            LineBorder borderFalse = new LineBorder(Color.GRAY, 1, true);
+            campo.setBorder(borderFalse);
         }
     }
     
