@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.sql.*;
 
 
 
@@ -35,7 +36,7 @@ public class ListarUsuarios extends javax.swing.JFrame {
     }
     
     public void imprimirClientes(){
-        for(int i = 0; i < this.ventanaMenu.indexPersona; i++){
+        /* for(int i = 0; i < this.ventanaMenu.indexPersona; i++){
             if(this.ventanaMenu.listaPersonas[i] != null){
                 etqTemporal = new JLabel(i + " " + this.ventanaMenu.listaPersonas[i].getCedula()+" - "+this.ventanaMenu.listaPersonas[i].getNombres()+" "+this.ventanaMenu.listaPersonas[i].getApellidos());
                 etqTemporal.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -45,7 +46,28 @@ public class ListarUsuarios extends javax.swing.JFrame {
                 JPopupMenu.Separator separador = new JPopupMenu.Separator();
                 contenUsuarios.add(separador);
             }
+        }*/
+        
+        try{
+            ResultSet registros = this.ventanaMenu.database.listaPersonas();
+            if (registros.getRow()==1) {
+                do{
+                    etqTemporal = new JLabel(registros.getRow() + " " + registros.getString("cedula") +" - "+registros.getString("nombres")+" "+registros.getString("apellidos"));
+                    etqTemporal.setFont(new Font("Arial", Font.PLAIN, 12));
+                    etqTemporal.setBorder(new EmptyBorder(2,10,2,10));
+                    contenUsuarios.add(etqTemporal);
+
+                    JPopupMenu.Separator separador = new JPopupMenu.Separator();
+                    contenUsuarios.add(separador);
+                }while(registros.next());
+            }else{
+                System.out.println("No existen Personas");
+            }
+        }catch(SQLException e){
+            System.out.println("Error al extraer los datos: "+e.getMessage());
         }
+        
+        
         revalidate();
     }
     

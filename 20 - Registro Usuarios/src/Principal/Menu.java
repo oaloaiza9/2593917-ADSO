@@ -7,10 +7,12 @@ public class Menu extends JFrame {
     
     Persona listaPersonas [];
     int indexPersona;
+    DataBase database;
     
     public Menu() {
         this.listaPersonas = new Persona [100];
         this.indexPersona = 0;
+        this.database = new DataBase();
         
         initComponents();
         initAlternComponents();
