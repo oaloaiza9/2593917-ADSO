@@ -1,14 +1,26 @@
 
 package ModuloUsuarios;
 
+import Clases.Persona;
+import Principal.Alert;
 import Principal.Menu;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class ModificarUsuario extends javax.swing.JFrame {
     
     Menu ventanaMenu;
+    Persona listaPersonas [];
+    String tipoLista;
     
-    public ModificarUsuario(Menu ventanaMenu) {
+    public ModificarUsuario(Menu ventanaMenu, Persona [] listaPersonas, String tipoLista) {
         this.ventanaMenu = ventanaMenu;
+        this.listaPersonas = listaPersonas;
+        this.tipoLista = tipoLista;
         
         initComponents();
         initAlternComponents();
@@ -35,12 +47,13 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoEmail = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
-        btnRegistrar1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Usuarios");
+        setResizable(false);
 
         contentTitulo.setBackground(new java.awt.Color(0, 0, 102));
 
@@ -67,6 +80,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
 
         campoCedula.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoCedula.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCedula(evt);
+            }
+        });
 
         etqNombres.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqNombres.setForeground(new java.awt.Color(51, 51, 51));
@@ -76,6 +94,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoNombres.setEnabled(false);
         campoNombres.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCampos(evt);
+            }
+        });
 
         etqApellidos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqApellidos.setForeground(new java.awt.Color(51, 51, 51));
@@ -85,6 +108,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoApellidos.setEnabled(false);
         campoApellidos.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCampos(evt);
+            }
+        });
 
         etqTelefono.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqTelefono.setForeground(new java.awt.Color(51, 51, 51));
@@ -94,6 +122,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoTelefono.setEnabled(false);
         campoTelefono.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCampos(evt);
+            }
+        });
 
         etqDireccion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqDireccion.setForeground(new java.awt.Color(51, 51, 51));
@@ -103,6 +136,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoDireccion.setEnabled(false);
         campoDireccion.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCampos(evt);
+            }
+        });
 
         etqEmail.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etqEmail.setForeground(new java.awt.Color(51, 51, 51));
@@ -112,6 +150,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         campoEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         campoEmail.setEnabled(false);
         campoEmail.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        campoEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                eventoKeyCampos(evt);
+            }
+        });
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 153));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -129,12 +172,22 @@ public class ModificarUsuario extends javax.swing.JFrame {
         btnRegistrar.setText("MODIFICAR");
         btnRegistrar.setEnabled(false);
         btnRegistrar.setFocusable(false);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
-        btnRegistrar1.setBackground(new java.awt.Color(0, 0, 153));
-        btnRegistrar1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btnRegistrar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar1.setText("BUSCAR");
-        btnRegistrar1.setFocusable(false);
+        btnBuscar.setBackground(new java.awt.Color(0, 0, 153));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setFocusable(false);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -150,7 +203,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegistrar1)
+                .addComponent(btnBuscar)
                 .addContainerGap(33, Short.MAX_VALUE))
             .addGroup(contentPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
@@ -200,7 +253,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
                 .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etqCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,16 +308,144 @@ public class ModificarUsuario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String cedula = campoCedula.getText();
+        Persona temporal = null;
+        for (int i=0; i<this.listaPersonas.length; i++) {
+            if (this.listaPersonas[i]!=null && cedula.equals(this.listaPersonas[i].getCedula())) {
+                temporal = this.listaPersonas[i];
+            }else if(this.listaPersonas[i]==null){
+                break;
+            }
+        }
+        
+        if (temporal != null) {
+            habilitarCampo(campoNombres);
+            habilitarCampo(campoApellidos);
+            habilitarCampo(campoTelefono);
+            habilitarCampo(campoDireccion);
+            habilitarCampo(campoEmail);
+            campoNombres.setText(temporal.getNombres());
+            campoApellidos.setText(temporal.getApellidos());
+            campoTelefono.setText(temporal.getTelefono());
+            campoDireccion.setText(temporal.getDireccion());
+            campoEmail.setText(temporal.getEmail());
+            campoNombres.requestFocus();
+            btnRegistrar.setEnabled(true);
+        }else{
+            Alert alerta = new Alert("NO EXISTE", "La cedula no esta registrada.", "error");
+            campoNombres.setText("");
+            campoApellidos.setText("");
+            campoTelefono.setText("");
+            campoDireccion.setText("");
+            campoEmail.setText("");
+            deshabilitarCampo(campoNombres);
+            deshabilitarCampo(campoApellidos);
+            deshabilitarCampo(campoTelefono);
+            deshabilitarCampo(campoDireccion);
+            deshabilitarCampo(campoEmail);
+            campoCedula.requestFocus();
+            btnRegistrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        String cedula = campoCedula.getText();
+        String nombres = campoNombres.getText();
+        String apellidos = campoApellidos.getText();
+        String direccion = campoDireccion.getText();
+        String telefono = campoTelefono.getText();
+        String email = campoEmail.getText();
+        Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
+        
+        if (!cedula.equals("") && !nombres.equals("") && !apellidos.equals("") && !direccion.equals("") && !telefono.equals("") && !email.equals("") ) {
+            for (int i=0; i<this.listaPersonas.length; i++) {
+                if (this.listaPersonas[i]!=null && cedula.equals(this.listaPersonas[i].getCedula())) {
+                    this.listaPersonas[i] = temporal;
+                    Alert alerta = new Alert("EXITO", "Datos editados correctamente.", "success");
+                    break;
+                }else if(this.listaPersonas[i]==null){
+                    break;
+                }
+            }
+        }else{
+            Alert alerta = new Alert("Datos Inválidos", "Todos los campos son obligatorios.", "error");
+            validarTodosInputs();
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void eventoKeyCampos(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eventoKeyCampos
+        JTextField campo = (JTextField) evt.getSource();
+        validarInput(campo);
+    }//GEN-LAST:event_eventoKeyCampos
+
+    private void eventoKeyCedula(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eventoKeyCedula
+        String cedula = campoCedula.getText();
+        campoNombres.setText("");
+        campoApellidos.setText("");
+        campoTelefono.setText("");
+        campoDireccion.setText("");
+        campoEmail.setText("");
+        deshabilitarCampo(campoNombres);
+        deshabilitarCampo(campoApellidos);
+        deshabilitarCampo(campoTelefono);
+        deshabilitarCampo(campoDireccion);
+        deshabilitarCampo(campoEmail);
+        campoCedula.requestFocus();
+        btnRegistrar.setEnabled(false);
+    }//GEN-LAST:event_eventoKeyCedula
+
+    public void deshabilitarCampo(JTextField campo){
+        JTextField referencia = new JTextField();
+        campo.setBorder( referencia.getBorder() );
+        campo.setEnabled(false);
+        campo.setBackground(Color.GRAY );
+    }
+    
+    public void habilitarCampo(JTextField campo){
+        campo.setEnabled(true);
+        campo.setBackground(Color.WHITE );
+    }
+    
     public void initAlternComponents(){
         setLocationRelativeTo(null);
         setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_almacenes.png") ) );
+        setTitle("Usuarios");
+        etqTitulo.setText("MODIFICAR "+this.tipoLista);
+        
+        deshabilitarCampo(campoNombres);
+        deshabilitarCampo(campoApellidos);
+        deshabilitarCampo(campoTelefono);
+        deshabilitarCampo(campoDireccion);
+        deshabilitarCampo(campoEmail);
+    }
+    
+    public void validarTodosInputs(){
+        validarInput(campoEmail);
+        validarInput(campoDireccion);
+        validarInput(campoTelefono);
+        validarInput(campoApellidos);
+        validarInput(campoNombres);
+    }
+    
+    public void validarInput(JTextField campo){
+        if (campo.getText().equals("")) {
+            Border borderColor = new LineBorder(Color.RED, 1, true);
+            Border borderPadding = new EmptyBorder(2,5,2,5);
+            Border borderRojo = new CompoundBorder(borderColor, borderPadding);
+            campo.setBorder(borderRojo);
+            campo.requestFocus();
+        }else{
+            JTextField referencia = new JTextField();
+            campo.setBorder( referencia.getBorder() );
+        }
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton btnRegistrar1;
     private javax.swing.JTextField campoApellidos;
     private javax.swing.JTextField campoCedula;
     private javax.swing.JTextField campoDireccion;

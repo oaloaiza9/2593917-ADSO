@@ -4,6 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Usuarios"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -89,7 +90,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="campoCedula" min="-2" pref="173" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnRegistrar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
@@ -154,7 +155,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="etqCedula" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="campoCedula" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="btnRegistrar1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -213,6 +214,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCedula"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etqNombres">
           <Properties>
@@ -236,6 +240,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCampos"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etqApellidos">
           <Properties>
@@ -259,6 +266,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCampos"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etqTelefono">
           <Properties>
@@ -282,6 +292,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCampos"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etqDireccion">
           <Properties>
@@ -305,6 +318,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCampos"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="etqEmail">
           <Properties>
@@ -328,6 +344,9 @@
               <Insets value="[2, 5, 2, 5]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="eventoKeyCampos"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
@@ -359,8 +378,11 @@
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnRegistrar1">
+        <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="0" red="0" type="rgb"/>
@@ -374,6 +396,9 @@
             <Property name="text" type="java.lang.String" value="BUSCAR"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>

@@ -5,7 +5,10 @@ import Clases.Persona;
 import Principal.Alert;
 import Principal.Menu;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -16,13 +19,11 @@ public class CrearUsuario extends javax.swing.JFrame {
     
     Menu ventanaMenu;
     Persona listaPersonas [];
-    int indexLista;
     String titulo;
     
-    public CrearUsuario(Menu ventanaMenu, Persona [] listaPersonas, int indexLista, String titulo) {
+    public CrearUsuario(Menu ventanaMenu, Persona [] listaPersonas, String titulo) {
         this.ventanaMenu = ventanaMenu;
         this.listaPersonas = listaPersonas;
-        this.indexLista = indexLista;
         this.titulo = titulo;
         
         this.ventanaMenu.setVisible(false);
@@ -276,17 +277,31 @@ public class CrearUsuario extends javax.swing.JFrame {
         String email = campoEmail.getText();
         
         if (!cedula.equals("") && !nombres.equals("") && !apellidos.equals("") && !direccion.equals("") && !telefono.equals("") && !email.equals("") ) {
-            Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
-            this.listaPersonas[ this.indexLista ] = temporal;
-            if (this.titulo.equals("CLIENTE")) {
-                this.ventanaMenu.indexClientes++;        
-            }else if(this.titulo.equals("VENDEDOR")){
-                this.ventanaMenu.indexVendedores++;
+            boolean repetido = false;
+            for(int i = 0; i < this.listaPersonas.length; i++){
+                if(this.listaPersonas[i] != null && cedula.equals(this.listaPersonas[i].getCedula())){
+                    repetido = true;
+                }else if(this.listaPersonas[i] == null){
+                    break;
+                }
             }
             
-            this.ventanaMenu.setVisible(true);
-            this.ventanaMenu.alertCreacionUsuario();
-            dispose();
+            if (!repetido) {
+                Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
+                int indexLista = (this.titulo.equals("CLIENTE"))? this.ventanaMenu.indexClientes : this.ventanaMenu.indexVendedores;
+                this.listaPersonas[ indexLista ] = temporal;
+                if (this.titulo.equals("CLIENTE")) {
+                    this.ventanaMenu.indexClientes++;        
+                }else if(this.titulo.equals("VENDEDOR")){
+                    this.ventanaMenu.indexVendedores++;
+                }
+
+                this.ventanaMenu.setVisible(true);
+                this.ventanaMenu.alertCreacionUsuario();
+                dispose();
+            }else{
+                Alert alerta = new Alert("CEDULA", "La cedula ya esta registrada.", "error");
+            }
         }else{
             Alert alerta = new Alert("Datos Inválidos", "Todos los campos son obligatorios.", "error");
             validarTodosInputs();

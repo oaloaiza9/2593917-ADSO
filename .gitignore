@@ -1,4 +1,5 @@
 *.class
+21-FacturadorCompleto
 Aprendices
 /17-UI Buscaminas/BuscaMinas/nbproject/private/
 /17-UI Buscaminas/BuscaMinas/build/
@@ -13,3 +14,6 @@ Aprendices
 /18-Yeison/build/
 /21-FacturadorCompleto/nbproject/private/
 /21-FacturadorCompleto/build/
+/21-FacturadorCompleto/dist/
+/22-ConexionBaseDatos/nbproject/private/
+/22-ConexionBaseDatos/build/

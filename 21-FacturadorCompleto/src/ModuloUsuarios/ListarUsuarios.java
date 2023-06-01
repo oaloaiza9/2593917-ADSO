@@ -18,16 +18,14 @@ public class ListarUsuarios extends javax.swing.JFrame {
     
     Menu ventanaMenu;
     Persona listaPersonas [];
-    int indexLista;
     String titulo;
     
     private JLabel etqTemporal;
     
     
-    public ListarUsuarios(Menu ventanaMenu, Persona [] listaPersonas, int indexLista, String titulo) {
+    public ListarUsuarios(Menu ventanaMenu, Persona [] listaPersonas, String titulo) {
         this.ventanaMenu = ventanaMenu;
         this.listaPersonas = listaPersonas;
-        this.indexLista = indexLista;
         this.titulo = titulo;
         
         initComponents();
@@ -46,15 +44,14 @@ public class ListarUsuarios extends javax.swing.JFrame {
     }
     
     public void imprimirClientes(){
-        for(int i = 0; i < this.indexLista; i++){
+        for(int i = 0; i < this.listaPersonas.length; i++){
             if(this.listaPersonas[i] != null){
                 etqTemporal = new JLabel(i + " " + this.listaPersonas[i].getCedula()+" - "+this.listaPersonas[i].getNombres()+" "+this.listaPersonas[i].getApellidos());
                 etqTemporal.setFont(new Font("Arial", Font.PLAIN, 12));
                 etqTemporal.setBorder(new EmptyBorder(2,10,2,10));
                 contenUsuarios.add(etqTemporal);
-                
-                JPopupMenu.Separator separador = new JPopupMenu.Separator();
-                contenUsuarios.add(separador);
+            }else{
+                break;
             }
         }
         revalidate();
@@ -71,6 +68,7 @@ public class ListarUsuarios extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         principalContainer.setBackground(new java.awt.Color(153, 153, 255));
 
