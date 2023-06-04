@@ -1,22 +1,33 @@
 package Principal;
 
+import Clases.DataBase;
 import ModuloUsuarios.CrearUsuario;
 import ModuloUsuarios.ListarUsuarios;
 import ModuloUsuarios.ModificarUsuario;
 import Clases.Persona;
+import Clases.Producto;
+import ModuloFacturas.CrearFactura;
+import ModuloProductos.CrearProducto;
+import ModuloProductos.ListarProductos;
+import ModuloProductos.ModificarProductos;
 import java.awt.Toolkit;
 import javax.swing.*;
 
 public class Menu extends JFrame {
     
+    public DataBase database;
     public Persona listaClientes [];
     public Persona listaVendedores [];
+    public Producto listaProductos [];
     public int indexClientes;
     public int indexVendedores;
     
     public Menu() {
+        this.database = new DataBase();
+        
         this.listaClientes = new Persona [100];
         this.listaVendedores = new Persona [100];
+        this.listaProductos = new Producto [100];
         this.indexClientes = 5;
         this.indexVendedores = 5;
         
@@ -31,6 +42,12 @@ public class Menu extends JFrame {
         this.listaVendedores[2] = new Persona("108807", "Camilo", "Gonzalez", "300013", "Calle 27", "vendedor03@mail.com");
         this.listaVendedores[3] = new Persona("108808", "Maria", "Mendoza", "300014", "Calle 28", "vendedor04@mail.com");
         this.listaVendedores[4] = new Persona("108809", "Carolina", "Segura", "300015", "Calle 29", "vendedor05@mail.com");
+        
+        this.listaProductos[0] = new Producto(1010, "Leche", 3500);
+        this.listaProductos[1] = new Producto(1011, "Arroz Lb", 2500);
+        this.listaProductos[2] = new Producto(1012, "Arroz Kg", 4800);
+        this.listaProductos[3] = new Producto(1013, "Detergente Lb", 4400);
+        this.listaProductos[4] = new Producto(1014, "Detergente Kg", 8000);
         
         initComponents();
         initAlternComponents();
@@ -61,6 +78,10 @@ public class Menu extends JFrame {
         btnModificarProducto = new javax.swing.JButton();
         btnEliminarProducto = new javax.swing.JButton();
         btnListarProductos = new javax.swing.JButton();
+        etiquetaFactura = new javax.swing.JLabel();
+        contentFacturas = new javax.swing.JPanel();
+        btnCrearFactura = new javax.swing.JButton();
+        btnModificarFactura = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Usuarios");
@@ -307,6 +328,56 @@ public class Menu extends JFrame {
                 .addGap(23, 23, 23))
         );
 
+        etiquetaFactura.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        etiquetaFactura.setText("FACTURAS");
+        etiquetaFactura.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        contentFacturas.setBackground(new java.awt.Color(255, 255, 255));
+        contentFacturas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 102)));
+
+        btnCrearFactura.setBackground(new java.awt.Color(0, 0, 153));
+        btnCrearFactura.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnCrearFactura.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearFactura.setText("Crear");
+        btnCrearFactura.setFocusable(false);
+        btnCrearFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearFacturaActionPerformed(evt);
+            }
+        });
+
+        btnModificarFactura.setBackground(new java.awt.Color(0, 0, 153));
+        btnModificarFactura.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        btnModificarFactura.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarFactura.setText("LISTAR");
+        btnModificarFactura.setFocusable(false);
+        btnModificarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarFacturaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contentFacturasLayout = new javax.swing.GroupLayout(contentFacturas);
+        contentFacturas.setLayout(contentFacturasLayout);
+        contentFacturasLayout.setHorizontalGroup(
+            contentFacturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentFacturasLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(btnCrearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        contentFacturasLayout.setVerticalGroup(
+            contentFacturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentFacturasLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(contentFacturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCrearFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout contentPrincipalLayout = new javax.swing.GroupLayout(contentPrincipal);
         contentPrincipal.setLayout(contentPrincipalLayout);
         contentPrincipalLayout.setHorizontalGroup(
@@ -314,16 +385,20 @@ public class Menu extends JFrame {
             .addGroup(contentPrincipalLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contentClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(etiquetaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contentVendedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(etiquetaVendedores, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contentProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(etiquetaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etiquetaFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentPrincipalLayout.createSequentialGroup()
+                        .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contentClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(etiquetaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contentVendedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(etiquetaVendedores, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contentProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(etiquetaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(contentFacturas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         contentPrincipalLayout.setVerticalGroup(
@@ -343,7 +418,11 @@ public class Menu extends JFrame {
                         .addComponent(etiquetaCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(contentClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(etiquetaFactura)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(contentFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -365,15 +444,8 @@ public class Menu extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnListarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarClientesActionPerformed
-        System.out.println("Lista Clientes: "+this.indexClientes);
-        for (int i=0; i<this.listaClientes.length; i++) {
-            if (this.listaClientes[i]!=null) {
-                System.out.println(i+" => "+this.listaClientes[i].getCedula()+" - "+this.listaClientes[i].getNombres()+" "+this.listaClientes[i].getApellidos() );
-            }
-        }
-        
         setVisible(false);
-        ListarUsuarios ventana = new ListarUsuarios(this, this.listaClientes, "CLIENTES");
+        ListarUsuarios ventana = new ListarUsuarios(this, "CLIENTES");
         ventana.setVisible(true);
     }//GEN-LAST:event_btnListarClientesActionPerformed
 
@@ -405,21 +477,41 @@ public class Menu extends JFrame {
 
     private void btnListarVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVendedoresActionPerformed
         setVisible(false);
-        ListarUsuarios ventana = new ListarUsuarios(this, this.listaVendedores, "VENDEDORES");
+        ListarUsuarios ventana = new ListarUsuarios(this, "VENDEDORES");
         ventana.setVisible(true);
     }//GEN-LAST:event_btnListarVendedoresActionPerformed
 
     private void btnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearProductoActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        
+        CrearProducto ventana = new CrearProducto(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnCrearProductoActionPerformed
 
     private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        
+        ModificarProductos ventana = new ModificarProductos(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnModificarProductoActionPerformed
 
     private void btnListarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarProductosActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        
+        ListarProductos ventana = new ListarProductos(this);
+        ventana.setVisible(true);
     }//GEN-LAST:event_btnListarProductosActionPerformed
+
+    private void btnCrearFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearFacturaActionPerformed
+        setVisible(false);
+        
+        CrearFactura ventana = new CrearFactura(this, this.listaClientes, this.listaVendedores, this.listaProductos);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnCrearFacturaActionPerformed
+
+    private void btnModificarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarFacturaActionPerformed
     
     public void initAlternComponents(){
         setLocationRelativeTo(null);
@@ -440,6 +532,7 @@ public class Menu extends JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearCliente;
+    private javax.swing.JButton btnCrearFactura;
     private javax.swing.JButton btnCrearProducto;
     private javax.swing.JButton btnCrearVendedor;
     private javax.swing.JButton btnEliminarCliente;
@@ -449,14 +542,17 @@ public class Menu extends JFrame {
     private javax.swing.JButton btnListarProductos;
     private javax.swing.JButton btnListarVendedores;
     private javax.swing.JButton btnModificarCliente;
+    private javax.swing.JButton btnModificarFactura;
     private javax.swing.JButton btnModificarProducto;
     private javax.swing.JButton btnModificarVendedor;
     private javax.swing.JPanel contentClientes;
+    private javax.swing.JPanel contentFacturas;
     private javax.swing.JPanel contentMenu;
     private javax.swing.JPanel contentPrincipal;
     private javax.swing.JPanel contentProductos;
     private javax.swing.JPanel contentVendedores;
     private javax.swing.JLabel etiquetaCliente;
+    private javax.swing.JLabel etiquetaFactura;
     private javax.swing.JLabel etiquetaProductos;
     private javax.swing.JLabel etiquetaVendedores;
     private javax.swing.JLabel etqMenu;

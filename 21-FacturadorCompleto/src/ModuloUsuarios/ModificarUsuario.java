@@ -310,14 +310,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String cedula = campoCedula.getText();
-        Persona temporal = null;
-        for (int i=0; i<this.listaPersonas.length; i++) {
-            if (this.listaPersonas[i]!=null && cedula.equals(this.listaPersonas[i].getCedula())) {
-                temporal = this.listaPersonas[i];
-            }else if(this.listaPersonas[i]==null){
-                break;
-            }
-        }
+        Persona temporal = (this.tipoLista.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.buscarCliente(cedula) : this.ventanaMenu.database.buscarVendedor(cedula);
         
         if (temporal != null) {
             habilitarCampo(campoNombres);
@@ -359,15 +352,8 @@ public class ModificarUsuario extends javax.swing.JFrame {
         Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
         
         if (!cedula.equals("") && !nombres.equals("") && !apellidos.equals("") && !direccion.equals("") && !telefono.equals("") && !email.equals("") ) {
-            for (int i=0; i<this.listaPersonas.length; i++) {
-                if (this.listaPersonas[i]!=null && cedula.equals(this.listaPersonas[i].getCedula())) {
-                    this.listaPersonas[i] = temporal;
-                    Alert alerta = new Alert("EXITO", "Datos editados correctamente.", "success");
-                    break;
-                }else if(this.listaPersonas[i]==null){
-                    break;
-                }
-            }
+            boolean proceso = (this.tipoLista.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.editarCliente(temporal) : this.ventanaMenu.database.editarVendedor(temporal);
+            Alert alerta = new Alert("EXITO", "Datos editados correctamente.", "success");
         }else{
             Alert alerta = new Alert("Datos Inválidos", "Todos los campos son obligatorios.", "error");
             validarTodosInputs();

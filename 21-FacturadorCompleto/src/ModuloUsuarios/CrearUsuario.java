@@ -5,10 +5,6 @@ import Clases.Persona;
 import Principal.Alert;
 import Principal.Menu;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -277,25 +273,10 @@ public class CrearUsuario extends javax.swing.JFrame {
         String email = campoEmail.getText();
         
         if (!cedula.equals("") && !nombres.equals("") && !apellidos.equals("") && !direccion.equals("") && !telefono.equals("") && !email.equals("") ) {
-            boolean repetido = false;
-            for(int i = 0; i < this.listaPersonas.length; i++){
-                if(this.listaPersonas[i] != null && cedula.equals(this.listaPersonas[i].getCedula())){
-                    repetido = true;
-                }else if(this.listaPersonas[i] == null){
-                    break;
-                }
-            }
+            boolean repetido = (this.titulo.equalsIgnoreCase("CLIENTE"))? (this.ventanaMenu.database.buscarCliente(cedula)!=null) : (this.ventanaMenu.database.buscarVendedor(cedula)!=null);
             
             if (!repetido) {
-                Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
-                int indexLista = (this.titulo.equals("CLIENTE"))? this.ventanaMenu.indexClientes : this.ventanaMenu.indexVendedores;
-                this.listaPersonas[ indexLista ] = temporal;
-                if (this.titulo.equals("CLIENTE")) {
-                    this.ventanaMenu.indexClientes++;        
-                }else if(this.titulo.equals("VENDEDOR")){
-                    this.ventanaMenu.indexVendedores++;
-                }
-
+                boolean proceso = (this.titulo.equalsIgnoreCase("CLIENTE"))? this.ventanaMenu.database.insertarCliente(cedula, nombres, apellidos, telefono, direccion, email) : this.ventanaMenu.database.insertarVendedor(cedula, nombres, apellidos, telefono, direccion, email);
                 this.ventanaMenu.setVisible(true);
                 this.ventanaMenu.alertCreacionUsuario();
                 dispose();

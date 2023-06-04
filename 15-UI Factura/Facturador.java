@@ -9,6 +9,7 @@ public class Facturador extends JFrame{
 	// Atributos
 	private Persona listaClientes [];
 	private Persona listaVendedores [];
+	private Producto listaProductos [];
 	private JLabel etq_datos_cliente;
 	private JLabel etq_cedula_cliente;
 	private JLabel etq_nombres_cliente;
@@ -36,9 +37,10 @@ public class Facturador extends JFrame{
 	private JButton btn_add_producto;
 
 	// Metodos
-	public Facturador(Persona[] listaClientes, Persona[] listaVendedores){
+	public Facturador(Persona[] listaClientes, Persona[] listaVendedores, Producto[] listaProductos){
 		this.listaClientes = listaClientes;
 		this.listaVendedores = listaVendedores;
+		this.listaProductos = listaProductos;
 
 		initComponent();
 	}
@@ -288,6 +290,7 @@ public class Facturador extends JFrame{
 
 
 		input_id_producto = new JTextField();
+		input_id_producto.setHorizontalAlignment(JLabel.CENTER);
 		restriccion.gridy = 9;
 		restriccion.gridx = 0;
 		restriccion.gridheight = 1;
@@ -299,6 +302,7 @@ public class Facturador extends JFrame{
 		contPrincipal.add( input_id_producto, restriccion );
 
 		input_nombre_producto = new JTextField();
+		input_nombre_producto.setHorizontalAlignment(JLabel.CENTER);
 		restriccion.gridy = 9;
 		restriccion.gridx = 1;
 		restriccion.gridheight = 1;
@@ -310,6 +314,7 @@ public class Facturador extends JFrame{
 		contPrincipal.add( input_nombre_producto, restriccion );
 
 		input_cant_producto = new JTextField();
+		input_cant_producto.setHorizontalAlignment(JLabel.CENTER);
 		restriccion.gridy = 9;
 		restriccion.gridx = 2;
 		restriccion.gridheight = 1;
@@ -330,9 +335,6 @@ public class Facturador extends JFrame{
 		restriccion.insets = new Insets(0, 10, 0, 10);
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( btn_add_producto, restriccion );
-
-
-
 
 		etq_resultado = new JLabel(" ---- ");
 		etq_resultado.setHorizontalAlignment( JLabel.RIGHT );
@@ -371,6 +373,10 @@ public class Facturador extends JFrame{
 		this.input_direccion_cliente.setEnabled(false);
 		deshabilitarInput(this.input_nombres_cliente);
 		deshabilitarInput(this.input_direccion_cliente);
+		deshabilitarInput(this.input_nombres_vendedor);
+		deshabilitarInput(this.input_id_producto);
+		deshabilitarInput(this.input_nombre_producto);
+		deshabilitarInput(this.input_cant_producto);
 
 		add( contPrincipal );
 		setResizable(false);
@@ -378,12 +384,106 @@ public class Facturador extends JFrame{
 		revalidate();
 		repaint();
 
-		ActionListener evento_01 = new ActionListener(){
+		ActionListener eventoClickBuscarCliente = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				buscarCliente();
 			}
 		};
-		btn_buscar_cliente.addActionListener( evento_01 );
+
+		KeyListener eventoKeyBuscarCliente = new KeyListener(){
+            public void keyPressed(KeyEvent e){
+            }
+
+            public void keyReleased(KeyEvent e){
+                String texto = input_cedula_cliente.getText();
+                if(texto.equalsIgnoreCase("")){
+                    input_nombres_cliente.setText("");
+                    input_direccion_cliente.setText("");
+                }
+                if (e.getKeyCode()==10) {
+                    buscarCliente();
+                }else{
+                	input_nombres_cliente.setText("");
+                    input_direccion_cliente.setText("");
+                    deshabilitarInput(input_nombres_cliente);
+					deshabilitarInput(input_direccion_cliente);
+                }
+            }
+
+            public void keyTyped(KeyEvent e){
+            }
+        };
+
+        ActionListener eventoClickBuscarVendedor = new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				buscarVendedor();
+			}
+		};
+
+		KeyListener eventoKeyBuscarVendedor = new KeyListener(){
+            public void keyPressed(KeyEvent e){
+            }
+
+            public void keyReleased(KeyEvent e){
+                String texto = input_cedula_vendedor.getText();
+                if(texto.equalsIgnoreCase("")){
+                    input_nombres_vendedor.setText("");
+                }
+                if (e.getKeyCode()==10) {
+                    buscarVendedor();
+                }else{
+                	input_nombres_vendedor.setText("");
+                    deshabilitarInput(input_nombres_vendedor);
+
+                    input_id_producto.setText("");
+					deshabilitarInput(input_id_producto);
+					input_nombre_producto.setText("");
+					deshabilitarInput(input_nombre_producto);
+					input_cant_producto.setText("");
+					deshabilitarInput(input_cant_producto);
+                }
+            }
+
+            public void keyTyped(KeyEvent e){
+            }
+        };
+
+		btn_buscar_cliente.addActionListener( eventoClickBuscarCliente );
+		input_cedula_cliente.addKeyListener( eventoKeyBuscarCliente );
+
+		btn_buscar_vendedor.addActionListener( eventoClickBuscarVendedor );
+		input_cedula_vendedor.addKeyListener( eventoKeyBuscarVendedor );
+
+
+		KeyListener eventoKeyBuscarProducto = new KeyListener(){
+            public void keyPressed(KeyEvent e){
+            }
+
+            public void keyReleased(KeyEvent e){
+                String texto = input_id_producto.getText();
+                if(texto.equalsIgnoreCase("")){
+                    input_nombre_producto.setText("");
+                    input_cant_producto.setText("");
+                }
+                
+                if (e.getKeyCode()==10) {
+                    buscarProducto();
+                }else if (e.getKeyCode()==8) {
+                	input_nombre_producto.setText("");
+                    input_cant_producto.setText("");
+                    deshabilitarInput(input_nombre_producto);
+                }else if (e.getKeyCode()!=16){
+                	input_nombre_producto.setText("");
+                    input_cant_producto.setText("");
+                    deshabilitarInput(input_nombre_producto);
+                    buscarProducto();
+                }
+            }
+
+            public void keyTyped(KeyEvent e){
+            }
+        };
+        input_id_producto.addKeyListener(eventoKeyBuscarProducto);
 	}
 
 	public boolean validarNumero(String texto){
@@ -423,10 +523,68 @@ public class Facturador extends JFrame{
 			deshabilitarInput(this.input_direccion_cliente);
 			this.input_cedula_vendedor.requestFocus();
 		}else{
-			habilitarInput(this.input_nombres_cliente);
-			habilitarInput(this.input_direccion_cliente);
-			this.input_nombres_cliente.requestFocus();
+			/*if (this.validarNumero(texto)) {
+				habilitarInput(this.input_nombres_cliente);
+				habilitarInput(this.input_direccion_cliente);
+				this.input_nombres_cliente.requestFocus();
+			}*/
 		}	
+	}
+
+	public void buscarVendedor(){
+		String texto = input_cedula_vendedor.getText();
+		boolean encontrado = false;
+		for (int i=0; i<this.listaVendedores.length; i++) {
+			if(this.listaVendedores[i]!=null && this.listaVendedores[i].getCedula().equalsIgnoreCase(texto)){
+				this.input_nombres_vendedor.setText( this.listaVendedores[i].getNombres() );
+				encontrado = true;
+				break;
+			}
+		}
+
+		if(!encontrado){
+			this.input_id_producto.setText("");
+			deshabilitarInput(this.input_id_producto);
+			this.input_nombre_producto.setText("");
+			deshabilitarInput(this.input_nombre_producto);
+			this.input_cant_producto.setText("");
+			deshabilitarInput(this.input_cant_producto);
+
+			this.input_nombres_vendedor.setText("");
+			this.input_cedula_vendedor.requestFocus();
+		}else{
+			this.input_id_producto.setText("");
+			habilitarInput(this.input_id_producto);
+			this.input_nombre_producto.setText("");
+			deshabilitarInput(this.input_nombre_producto);
+			this.input_cant_producto.setText("");
+			habilitarInput(this.input_cant_producto);
+
+			this.input_id_producto.requestFocus();
+		}
+	}
+
+	public void buscarProducto(){
+		String texto = input_id_producto.getText();
+		boolean encontrado = false;
+		for (int i=0; i<this.listaProductos.length; i++) {
+			if(this.listaProductos[i]!=null && this.listaProductos[i].id==Integer.valueOf(texto) ){
+				this.input_nombre_producto.setText( this.listaProductos[i].nombre );
+				encontrado = true;
+				break;
+			}
+		}
+
+		if(!encontrado){
+			this.input_nombre_producto.setText("");
+			deshabilitarInput(this.input_nombre_producto);
+			this.input_cant_producto.setText("");
+			this.input_id_producto.requestFocus();
+		}else{
+			this.input_cant_producto.setText("");
+			habilitarInput(this.input_cant_producto);
+			this.input_cant_producto.requestFocus();
+		}
 	}
 
 	public void deshabilitarInput(JTextField input){

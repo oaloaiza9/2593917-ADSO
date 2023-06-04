@@ -17,15 +17,13 @@ import javax.swing.border.LineBorder;
 public class ListarUsuarios extends javax.swing.JFrame {
     
     Menu ventanaMenu;
-    Persona listaPersonas [];
     String titulo;
     
     private JLabel etqTemporal;
     
     
-    public ListarUsuarios(Menu ventanaMenu, Persona [] listaPersonas, String titulo) {
+    public ListarUsuarios(Menu ventanaMenu, String titulo) {
         this.ventanaMenu = ventanaMenu;
-        this.listaPersonas = listaPersonas;
         this.titulo = titulo;
         
         initComponents();
@@ -44,17 +42,21 @@ public class ListarUsuarios extends javax.swing.JFrame {
     }
     
     public void imprimirClientes(){
-        for(int i = 0; i < this.listaPersonas.length; i++){
-            if(this.listaPersonas[i] != null){
-                etqTemporal = new JLabel(i + " " + this.listaPersonas[i].getCedula()+" - "+this.listaPersonas[i].getNombres()+" "+this.listaPersonas[i].getApellidos());
-                etqTemporal.setFont(new Font("Arial", Font.PLAIN, 12));
-                etqTemporal.setBorder(new EmptyBorder(2,10,2,10));
-                contenUsuarios.add(etqTemporal);
-            }else{
-                break;
+        Persona listaPersonas [] = (this.titulo.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.listaClientes() : this.ventanaMenu.database.listaVendedores();
+        
+        if (listaPersonas!=null) {
+            for(int i = 0; i < listaPersonas.length; i++){
+                if(listaPersonas[i] != null){
+                    etqTemporal = new JLabel(listaPersonas[i].getCedula()+" - "+listaPersonas[i].getNombres()+" "+listaPersonas[i].getApellidos());
+                    etqTemporal.setFont(new Font("Arial", Font.PLAIN, 12));
+                    etqTemporal.setBorder(new EmptyBorder(2,10,2,10));
+                    contenUsuarios.add(etqTemporal);
+                }else{
+                    break;
+                }
             }
+            revalidate();
         }
-        revalidate();
     }
     
     @SuppressWarnings("unchecked")
