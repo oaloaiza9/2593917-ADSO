@@ -17,6 +17,15 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- Eliminar la base de datos si existe
+DROP DATABASE IF EXISTS `almacenes`;
+
+-- Crear la base de datos si no existe
+CREATE DATABASE IF NOT EXISTS `almacenes`;
+
+-- Usar la base de datos recién creada
+USE `almacenes`;
+
 -- ----------------------------
 -- Table structure for clientes
 -- ----------------------------
