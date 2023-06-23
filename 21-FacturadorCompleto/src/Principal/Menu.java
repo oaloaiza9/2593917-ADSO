@@ -10,14 +10,13 @@ import ModuloFacturas.CrearFactura;
 import ModuloProductos.CrearProducto;
 import ModuloProductos.ListarProductos;
 import ModuloProductos.ModificarProductos;
+import ModuloUsuarios.EliminarUsuario;
 import java.awt.Toolkit;
 import javax.swing.*;
 
 public class Menu extends JFrame {
     
     public DataBase database;
-    public Persona listaClientes [];
-    public Persona listaVendedores [];
     public Producto listaProductos [];
     public int indexClientes;
     public int indexVendedores;
@@ -25,23 +24,9 @@ public class Menu extends JFrame {
     public Menu() {
         this.database = new DataBase();
         
-        this.listaClientes = new Persona [100];
-        this.listaVendedores = new Persona [100];
         this.listaProductos = new Producto [100];
         this.indexClientes = 5;
         this.indexVendedores = 5;
-        
-        this.listaClientes[0] = new Persona("108800", "Juan", "Perez", "300001", "Calle 20", "cliente01@mail.com");
-        this.listaClientes[1] = new Persona("108801", "Manuel", "Molina", "300002", "Calle 21", "cliente02@mail.com");
-        this.listaClientes[2] = new Persona("108802", "Jose", "Gonzalez", "300003", "Calle 22", "cliente03@mail.com");
-        this.listaClientes[3] = new Persona("108803", "Ana", "Mendoza", "300004", "Calle 23", "cliente04@mail.com");
-        this.listaClientes[4] = new Persona("108804", "Sofia", "Segura", "300005", "Calle 24", "cliente05@mail.com");
-        
-        this.listaVendedores[0] = new Persona("108805", "Andres", "Perez", "300011", "Calle 25", "vendedor01@mail.com");
-        this.listaVendedores[1] = new Persona("108806", "Julian", "Molina", "300012", "Calle 26", "vendedor02@mail.com");
-        this.listaVendedores[2] = new Persona("108807", "Camilo", "Gonzalez", "300013", "Calle 27", "vendedor03@mail.com");
-        this.listaVendedores[3] = new Persona("108808", "Maria", "Mendoza", "300014", "Calle 28", "vendedor04@mail.com");
-        this.listaVendedores[4] = new Persona("108809", "Carolina", "Segura", "300015", "Calle 29", "vendedor05@mail.com");
         
         this.listaProductos[0] = new Producto(1010, "Leche", 3500);
         this.listaProductos[1] = new Producto(1011, "Arroz Lb", 2500);
@@ -143,6 +128,11 @@ public class Menu extends JFrame {
         btnEliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCliente.setText("Eliminar");
         btnEliminarCliente.setFocusable(false);
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarClienteActionPerformed(evt);
+            }
+        });
 
         btnListarClientes.setBackground(new java.awt.Color(0, 0, 153));
         btnListarClientes.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -216,6 +206,11 @@ public class Menu extends JFrame {
         btnEliminarVendedor.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarVendedor.setText("Eliminar");
         btnEliminarVendedor.setFocusable(false);
+        btnEliminarVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarVendedorActionPerformed(evt);
+            }
+        });
 
         btnListarVendedores.setBackground(new java.awt.Color(0, 0, 153));
         btnListarVendedores.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
@@ -452,12 +447,12 @@ public class Menu extends JFrame {
     private void btnCrearClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearClienteActionPerformed
         setVisible(false);
         
-        CrearUsuario ventana = new CrearUsuario(this, this.listaClientes, "CLIENTE");
+        CrearUsuario ventana = new CrearUsuario(this, "CLIENTE");
         ventana.setVisible(true);
     }//GEN-LAST:event_btnCrearClienteActionPerformed
 
     private void btnModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClienteActionPerformed
-        ModificarUsuario ventana = new ModificarUsuario(this, this.listaClientes, "CLIENTES");
+        ModificarUsuario ventana = new ModificarUsuario(this, "CLIENTES");
         ventana.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btnModificarClienteActionPerformed
@@ -465,12 +460,12 @@ public class Menu extends JFrame {
     private void btnCrearVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearVendedorActionPerformed
         setVisible(false);
         
-        CrearUsuario ventana = new CrearUsuario(this, this.listaVendedores, "VENDEDOR");
+        CrearUsuario ventana = new CrearUsuario(this, "VENDEDOR");
         ventana.setVisible(true);
     }//GEN-LAST:event_btnCrearVendedorActionPerformed
 
     private void btnModificarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarVendedorActionPerformed
-        ModificarUsuario ventana = new ModificarUsuario(this, this.listaVendedores, "VENDEDOR");
+        ModificarUsuario ventana = new ModificarUsuario(this, "VENDEDOR");
         ventana.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btnModificarVendedorActionPerformed
@@ -505,13 +500,27 @@ public class Menu extends JFrame {
     private void btnCrearFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearFacturaActionPerformed
         setVisible(false);
         
-        CrearFactura ventana = new CrearFactura(this, this.listaClientes, this.listaVendedores, this.listaProductos);
+        CrearFactura ventana = new CrearFactura(this);
         ventana.setVisible(true);
     }//GEN-LAST:event_btnCrearFacturaActionPerformed
 
     private void btnModificarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarFacturaActionPerformed
+
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        setVisible(false);
+        
+        EliminarUsuario ventana = new EliminarUsuario(this, "CLIENTES");
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
+
+    private void btnEliminarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVendedorActionPerformed
+        setVisible(false);
+        
+        EliminarUsuario ventana = new EliminarUsuario(this, "VENDEDORES");
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnEliminarVendedorActionPerformed
     
     public void initAlternComponents(){
         setLocationRelativeTo(null);

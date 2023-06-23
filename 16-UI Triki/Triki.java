@@ -63,13 +63,13 @@ public class Triki extends JFrame{
                 MouseAdapter evento = new MouseAdapter(){
                     @Override
 	                public void mouseClicked(MouseEvent e) {
-	                	if(this.turno == 1){
+	                	if(turno == 1){
 	                    	boolean marcado = marcarCasilla(fila, columna);
 	                    	// Validar si hubo ganador
 	                    		// Si.
 	                    		// No.
 		                    	if(marcado){
-		                    		this.turno = 2;
+		                    		turno = 2;
 		                    		jugadaMaquina();
 		                    		// Validar si hubo ganador
 		                    	}

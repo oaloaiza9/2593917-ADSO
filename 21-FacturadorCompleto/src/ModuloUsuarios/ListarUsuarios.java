@@ -42,7 +42,7 @@ public class ListarUsuarios extends javax.swing.JFrame {
     }
     
     public void imprimirClientes(){
-        Persona listaPersonas [] = (this.titulo.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.listaClientes() : this.ventanaMenu.database.listaVendedores();
+        Persona listaPersonas [] = this.ventanaMenu.database.listaPersonas(this.titulo );
         
         if (listaPersonas!=null) {
             for(int i = 0; i < listaPersonas.length; i++){

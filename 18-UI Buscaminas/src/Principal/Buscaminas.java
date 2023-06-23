@@ -170,8 +170,6 @@ public class Buscaminas extends JFrame{
             this.tablero[fila][columna].setEnabled(false);
 
             // Completar Algoritmo
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             deshabilitarTablero();
         }
     }

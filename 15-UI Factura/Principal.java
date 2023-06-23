@@ -2,7 +2,7 @@ public class Principal{
 	public static void main(String[] args) {
 		
 		Persona listaClientes [] = new Persona [100];
-		Persona listaVendedores [] = new Persona [10];
+		Persona listaVendedores [] = new Persona [100];
 		Producto listaProductos [] = new Producto [10];
 		
 		listaClientes[0] = new Persona("108800", "Oscar Loaiza", "Calle 20");

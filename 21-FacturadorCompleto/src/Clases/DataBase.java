@@ -24,10 +24,39 @@ public class DataBase {
         }
     }
     
-    public Persona[] listaClientes(){
+    public String getNewIdFactura(){
+        try{
+            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM facturas ORDER BY facturas.id DESC");
+            registros.next();
+            if (registros.getRow()==1) {
+                return String.valueOf(registros.getInt("id")+1);
+            }
+            return "1";
+        }catch(SQLException e){
+            System.out.println("Error en SELECT: "+e.getMessage());
+            return "1";
+        }
+    }
+    
+    public Producto buscarProducto(String codigo){
+        try{
+            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM productos WHERE id = '"+codigo+"'");
+            registros.next();
+            if (registros.getRow()==1) {
+                return new Producto(registros.getInt("id"), registros.getString("nombre"), registros.getInt("precio"));
+            }
+            return null;
+        }catch(SQLException e){
+            System.out.println("Error en SELECT: "+e.getMessage());
+            return null;
+        }
+    }
+    
+    public Persona[] listaPersonas(String tipo){
+        String tabla = (tipo.equalsIgnoreCase("CLIENTES"))? "clientes" : "vendedores";
         Persona [] listaClientes = new Persona [100];
         try{
-            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM clientes");
+            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM "+tabla);
             registros.next();
             if (registros.getRow()==1) {
                 int indice = 0;
@@ -44,23 +73,23 @@ public class DataBase {
         }
     }
     
-    public Persona[] listaVendedores(){
-        Persona [] listaClientes = new Persona [100];
+    public Producto[] listaProductos(){
+        Producto [] listaProductos = new Producto [100];
         try{
-            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM vendedores");
+            ResultSet registros = this.manipularDB.executeQuery("SELECT * FROM productos");
             registros.next();
             if (registros.getRow()==1) {
                 int indice = 0;
                 do{
-                    Persona temp = new Persona( registros.getString("cedula"),registros.getString("nombres"), registros.getString("apellidos"), registros.getString("telefono"), registros.getString("direccion"), registros.getString("email") );
-                    listaClientes[indice] = temp;
+                    Producto temp = new Producto( Integer.valueOf(registros.getString("id")), registros.getString("nombre"), Integer.valueOf(registros.getString("precio")) );
+                    listaProductos[indice] = temp;
                     indice++;
                 }while(registros.next());
             }
-            return listaClientes;
+            return listaProductos;
         }catch(SQLException e){
             System.out.println("Error en SELECT: "+e.getMessage());
-            return listaClientes;
+            return listaProductos;
         }
     }
     
@@ -105,6 +134,21 @@ public class DataBase {
         
         try {
             String consulta = "UPDATE clientes SET nombres='"+nombres+"', apellidos='"+apellidos+"', telefono='"+telefono+"', direccion='"+direccion+"', email='"+email+"' WHERE cedula='"+cedula+"'";
+            int resp = manipularDB.executeUpdate(consulta);
+            if (resp>0) {
+                respuesta = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en UPDATE: "+ex.getMessage());
+        }
+        return respuesta;
+    }
+    
+    public boolean eliminarPersona(String tipo, String cedula){
+        boolean respuesta = false;
+        String tabla = (tipo.equalsIgnoreCase("CLIENTES"))? "clientes":"vendedores";
+        try {
+            String consulta = "DELETE FROM "+tabla+" WHERE cedula='"+cedula+"'";
             int resp = manipularDB.executeUpdate(consulta);
             if (resp>0) {
                 respuesta = true;

@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Locale;
+import javax.swing.border.*;
 
 public class Facturador extends JFrame{
 
@@ -10,6 +11,12 @@ public class Facturador extends JFrame{
 	private Persona listaClientes [];
 	private Persona listaVendedores [];
 	private Producto listaProductos [];
+	private JPanel contenedorItems;
+    private String idFactura;
+    private ItemsFactura listaItems [];
+    private JLabel listaJLabels [];
+    private int indiceItems;
+    private int totalFactura;
 	private JLabel etq_datos_cliente;
 	private JLabel etq_cedula_cliente;
 	private JLabel etq_nombres_cliente;
@@ -41,6 +48,11 @@ public class Facturador extends JFrame{
 		this.listaClientes = listaClientes;
 		this.listaVendedores = listaVendedores;
 		this.listaProductos = listaProductos;
+		this.idFactura = "1";
+        this.listaItems = new ItemsFactura [50];
+        this.listaJLabels = new JLabel [50];
+        this.indiceItems = 0;
+        this.totalFactura = 0;
 
 		initComponent();
 	}
@@ -55,6 +67,8 @@ public class Facturador extends JFrame{
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
 		setLocationRelativeTo(null);
 		
+		setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_factura.png") ) );
+
 		JPanel contPrincipal = new JPanel();
 		contPrincipal.setLayout(new GridBagLayout());
 		contPrincipal.setBorder( BorderFactory.createEmptyBorder(20, 20, 20, 10) );
@@ -336,38 +350,63 @@ public class Facturador extends JFrame{
 		restriccion.fill = GridBagConstraints.BOTH;
 		contPrincipal.add( btn_add_producto, restriccion );
 
-		etq_resultado = new JLabel(" ---- ");
-		etq_resultado.setHorizontalAlignment( JLabel.RIGHT );
-		etq_resultado.setVerticalAlignment( JLabel.TOP );
-		etq_resultado.setFont( new Font("Arial", Font.BOLD, 10) );
-		etq_resultado.setOpaque(true);
-		etq_resultado.setBackground( Color.white );
-		etq_resultado.setBorder( BorderFactory.createEmptyBorder(10, 10, 10, 10) );
-		restriccion.gridy = 10;
-		restriccion.gridx = 0;
-		restriccion.gridheight = 1;
-		restriccion.gridwidth = 4;
-		restriccion.weighty = 89;
-		restriccion.weightx = 100;
-		restriccion.fill = GridBagConstraints.BOTH;
-		restriccion.insets = new Insets(10, 0, 0, 10);
-		contPrincipal.add( etq_resultado, restriccion );
+		contenedorItems = new JPanel();
+        contenedorItems.setLayout( new GridBagLayout() );
+        contenedorItems.setBackground(Color.WHITE);
+        JScrollPane scrollPane = new JScrollPane(contenedorItems);
+        scrollPane.setBorder(null);
+        
+        restriccion.gridy = 10;
+        restriccion.gridx = 0;
+        restriccion.gridheight = 1;
+        restriccion.gridwidth = 4;
+        restriccion.weighty = 89;
+        restriccion.weightx = 100;
+        restriccion.fill = GridBagConstraints.BOTH;
+        restriccion.insets = new Insets(10, 0, 0, 10);
+        contPrincipal.add( scrollPane, restriccion );
+        
+        GridBagConstraints constItems = new GridBagConstraints();
+        
+        Border borderColor = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.decode("#D5D5D5"));
+        Border borderPadding = new EmptyBorder(5,10,5,10);
+        Border borderGris = new CompoundBorder(borderColor, borderPadding);
+        
+        for (int i=0; i<this.listaJLabels.length; i++) {
+            JLabel etq_temporal = new JLabel(" ");
+            etq_temporal.setHorizontalAlignment( JLabel.RIGHT );
+            etq_temporal.setFont( new Font("Arial", Font.BOLD, 10) );
+            etq_temporal.setOpaque(true);
+            etq_temporal.setBackground( Color.white );
+            etq_temporal.setBorder( borderGris );
+            this.listaJLabels[i] = etq_temporal;
+            constItems.gridy = i;
+            constItems.gridx = 0;
+            constItems.gridheight = 1;
+            constItems.gridwidth = 1;
+            constItems.weighty = 1;
+            constItems.weightx = 1;
+            constItems.fill = GridBagConstraints.HORIZONTAL;
+            constItems.anchor = GridBagConstraints.NORTH;
+            constItems.insets = new Insets(0, 0, 0, 0);
+            contenedorItems.add(this.listaJLabels[i], constItems);
+        }
 
-		etq_total = new JLabel("Total: $ 0");
-		etq_total.setHorizontalAlignment( JLabel.RIGHT );
-		etq_total.setFont( new Font("Arial", Font.BOLD, 20) );
-		etq_total.setOpaque(true);
-		etq_total.setBackground( Color.white );
-		etq_total.setBorder( BorderFactory.createEmptyBorder(5, 10, 5, 10) );
-		restriccion.gridy = 11;
-		restriccion.gridx = 0;
-		restriccion.gridheight = 1;
-		restriccion.gridwidth = 4;
-		restriccion.weighty = 2;
-		restriccion.weightx = 100;
-		restriccion.fill = GridBagConstraints.BOTH;
-		restriccion.insets = new Insets(0, 0, 0, 10);
-		contPrincipal.add( etq_total, restriccion );
+        etq_total = new JLabel("Total: $ 0");
+        etq_total.setHorizontalAlignment( JLabel.RIGHT );
+        etq_total.setFont( new Font("Arial", Font.BOLD, 20) );
+        etq_total.setOpaque(true);
+        etq_total.setBackground( Color.white );
+        etq_total.setBorder( BorderFactory.createEmptyBorder(5, 10, 5, 10) );
+        restriccion.gridy = 11;
+        restriccion.gridx = 0;
+        restriccion.gridheight = 1;
+        restriccion.gridwidth = 4;
+        restriccion.weighty = 2;
+        restriccion.weightx = 100;
+        restriccion.fill = GridBagConstraints.BOTH;
+        restriccion.insets = new Insets(0, 0, 0, 10);
+        contPrincipal.add( etq_total, restriccion );
 
 		this.input_nombres_cliente.setEnabled(false);
 		this.input_direccion_cliente.setEnabled(false);
@@ -484,6 +523,29 @@ public class Facturador extends JFrame{
             }
         };
         input_id_producto.addKeyListener(eventoKeyBuscarProducto);
+
+        ActionListener eventoAddItemFactura = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agregarItemsFactura();
+            }
+        };
+        btn_add_producto.addActionListener(eventoAddItemFactura);
+
+        KeyListener eventoKeyAddProducto = new KeyListener(){
+            public void keyPressed(KeyEvent e){
+            }
+
+            public void keyReleased(KeyEvent e){
+                if (e.getKeyCode()==10) {
+                    agregarItemsFactura();
+                }
+            }
+            public void keyTyped(KeyEvent e){
+            }
+        };
+
+        input_cant_producto.addKeyListener(eventoKeyAddProducto);
 	}
 
 	public boolean validarNumero(String texto){
@@ -598,5 +660,33 @@ public class Facturador extends JFrame{
 		input.setEditable(true);
 		input.setEnabled(true);
 	}
+
+	public void agregarItemsFactura(){
+        String codigo = input_id_producto.getText();
+        String cantidad = input_cant_producto.getText();
+        if (!codigo.equals("") && !cantidad.equals("")) {
+        	for (int i=0; i<this.listaProductos.length; i++) {
+        		if (this.listaProductos[i]!=null && this.listaProductos[i].getId()==Integer.parseInt(codigo)) {
+		            Producto producto = this.listaProductos[i];
+		            int subtotal = producto.getPrecio() * Integer.valueOf(cantidad);
+		            
+		            this.listaItems[this.indiceItems] = new ItemsFactura(Integer.parseInt(this.idFactura), producto.getId(), producto.getNombre(), Integer.parseInt(cantidad), subtotal);
+		            this.indiceItems++;
+		            this.totalFactura += subtotal;
+		            
+		            this.listaJLabels[this.indiceItems-1].setText( producto.getNombre()+" x "+cantidad+" => $ "+subtotal );
+		            etq_total.setText("Total: $ "+this.totalFactura);
+			        input_id_producto.setText("");
+			        input_nombre_producto.setText("");
+			        input_cant_producto.setText("");
+			        input_id_producto.requestFocus();
+			        revalidate();
+        		}
+        		if (this.listaProductos[i]==null) {
+        			break;
+        		}
+        	}
+        }
+    }
 
 }

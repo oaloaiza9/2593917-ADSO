@@ -11,12 +11,12 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class ModificarUsuario extends javax.swing.JFrame {
+public class EliminarUsuario extends javax.swing.JFrame {
     
     Menu ventanaMenu;
     String tipoLista;
     
-    public ModificarUsuario(Menu ventanaMenu, String tipoLista) {
+    public EliminarUsuario(Menu ventanaMenu, String tipoLista) {
         this.ventanaMenu = ventanaMenu;
         this.tipoLista = tipoLista;
         
@@ -44,7 +44,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqEmail = new javax.swing.JLabel();
         campoEmail = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
-        btnRegistrar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -58,7 +58,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         etqTitulo.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         etqTitulo.setForeground(new java.awt.Color(255, 255, 255));
         etqTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etqTitulo.setText("MODIFICAR USUARIO");
+        etqTitulo.setText("ELIMINAR USUARIO");
 
         javax.swing.GroupLayout contentTituloLayout = new javax.swing.GroupLayout(contentTitulo);
         contentTitulo.setLayout(contentTituloLayout);
@@ -164,15 +164,15 @@ public class ModificarUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnRegistrar.setBackground(new java.awt.Color(0, 0, 153));
-        btnRegistrar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("MODIFICAR");
-        btnRegistrar.setEnabled(false);
-        btnRegistrar.setFocusable(false);
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setEnabled(false);
+        btnEliminar.setFocusable(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -237,7 +237,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegistrar)))
+                        .addComponent(btnEliminar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentPrincipalLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -278,7 +278,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
                     .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contentPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
@@ -311,18 +311,13 @@ public class ModificarUsuario extends javax.swing.JFrame {
         Persona temporal = (this.tipoLista.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.buscarCliente(cedula) : this.ventanaMenu.database.buscarVendedor(cedula);
         
         if (temporal != null) {
-            habilitarCampo(campoNombres);
-            habilitarCampo(campoApellidos);
-            habilitarCampo(campoTelefono);
-            habilitarCampo(campoDireccion);
-            habilitarCampo(campoEmail);
             campoNombres.setText(temporal.getNombres());
             campoApellidos.setText(temporal.getApellidos());
             campoTelefono.setText(temporal.getTelefono());
             campoDireccion.setText(temporal.getDireccion());
             campoEmail.setText(temporal.getEmail());
             campoNombres.requestFocus();
-            btnRegistrar.setEnabled(true);
+            btnEliminar.setEnabled(true);
         }else{
             Alert alerta = new Alert("NO EXISTE", "La cedula no esta registrada.", "error");
             campoNombres.setText("");
@@ -330,33 +325,24 @@ public class ModificarUsuario extends javax.swing.JFrame {
             campoTelefono.setText("");
             campoDireccion.setText("");
             campoEmail.setText("");
-            deshabilitarCampo(campoNombres);
-            deshabilitarCampo(campoApellidos);
-            deshabilitarCampo(campoTelefono);
-            deshabilitarCampo(campoDireccion);
-            deshabilitarCampo(campoEmail);
             campoCedula.requestFocus();
-            btnRegistrar.setEnabled(false);
+            btnEliminar.setEnabled(false);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         String cedula = campoCedula.getText();
-        String nombres = campoNombres.getText();
-        String apellidos = campoApellidos.getText();
-        String direccion = campoDireccion.getText();
-        String telefono = campoTelefono.getText();
-        String email = campoEmail.getText();
-        Persona temporal = new Persona(cedula, nombres, apellidos, telefono, direccion, email);
-        
-        if (!cedula.equals("") && !nombres.equals("") && !apellidos.equals("") && !direccion.equals("") && !telefono.equals("") && !email.equals("") ) {
-            boolean proceso = (this.tipoLista.equalsIgnoreCase("CLIENTES"))? this.ventanaMenu.database.editarCliente(temporal) : this.ventanaMenu.database.editarVendedor(temporal);
-            Alert alerta = new Alert("EXITO", "Datos editados correctamente.", "success");
+        if (!cedula.equals("")) {
+            boolean proceso = this.ventanaMenu.database.eliminarPersona(this.tipoLista, cedula);
+            
+            dispose();
+            this.ventanaMenu.setVisible(true);
+            Alert alerta = new Alert("EXITO", "Datos eliminados correctamente.", "success");
         }else{
             Alert alerta = new Alert("Datos Inválidos", "Todos los campos son obligatorios.", "error");
             validarTodosInputs();
         }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void eventoKeyCampos(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eventoKeyCampos
         JTextField campo = (JTextField) evt.getSource();
@@ -376,14 +362,15 @@ public class ModificarUsuario extends javax.swing.JFrame {
         deshabilitarCampo(campoDireccion);
         deshabilitarCampo(campoEmail);
         campoCedula.requestFocus();
-        btnRegistrar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }//GEN-LAST:event_eventoKeyCedula
 
     public void deshabilitarCampo(JTextField campo){
         JTextField referencia = new JTextField();
         campo.setBorder( referencia.getBorder() );
         campo.setEnabled(false);
-        campo.setBackground(Color.GRAY );
+        campo.setBackground(Color.WHITE );
+        campo.setDisabledTextColor(Color.BLACK );
     }
     
     public void habilitarCampo(JTextField campo){
@@ -395,7 +382,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_almacenes.png") ) );
         setTitle("Usuarios");
-        etqTitulo.setText("MODIFICAR "+this.tipoLista);
+        etqTitulo.setText("ELIMINAR "+this.tipoLista);
         
         deshabilitarCampo(campoNombres);
         deshabilitarCampo(campoApellidos);
@@ -429,7 +416,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JTextField campoApellidos;
     private javax.swing.JTextField campoCedula;
     private javax.swing.JTextField campoDireccion;

@@ -1,5 +1,6 @@
 package ModuloFacturas;
 
+import Clases.ItemsFactura;
 import Clases.Persona;
 import Clases.Producto;
 import javax.swing.*;
@@ -8,16 +9,24 @@ import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Locale;
 import Principal.Menu;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class CrearFactura extends JFrame{
     
     // Metodos
-    public CrearFactura(Menu ventanaMenu, Persona[] listaClientes, Persona[] listaVendedores, Producto[] listaProductos){
+    public CrearFactura(Menu ventanaMenu){
         this.ventanaMenu = ventanaMenu;
 
-        this.listaClientes = listaClientes;
-        this.listaVendedores = listaVendedores;
-        this.listaProductos = listaProductos;
+        this.listaClientes = this.ventanaMenu.database.listaPersonas("CLIENTES");
+        this.listaVendedores = this.ventanaMenu.database.listaPersonas("VENDEDORES");
+        this.listaProductos = this.ventanaMenu.database.listaProductos();
+        this.idFactura = this.ventanaMenu.database.getNewIdFactura();
+        this.listaItems = new ItemsFactura [50];
+        this.indiceItems = 0;
+        this.totalFactura = 0;
 
         initComponent();
     }
@@ -310,14 +319,13 @@ public class CrearFactura extends JFrame{
         restriccion.insets = new Insets(0, 10, 0, 10);
         restriccion.fill = GridBagConstraints.BOTH;
         contPrincipal.add( btn_add_producto, restriccion );
-
-        etq_resultado = new JLabel(" ---- ");
-        etq_resultado.setHorizontalAlignment( JLabel.RIGHT );
-        etq_resultado.setVerticalAlignment( JLabel.TOP );
-        etq_resultado.setFont( new Font("Arial", Font.BOLD, 10) );
-        etq_resultado.setOpaque(true);
-        etq_resultado.setBackground( Color.white );
-        etq_resultado.setBorder( BorderFactory.createEmptyBorder(10, 10, 10, 10) );
+        
+        contenedorItems = new JPanel();
+        contenedorItems.setLayout( new GridBagLayout() );
+        contenedorItems.setBackground(Color.WHITE);
+        JScrollPane scrollPane = new JScrollPane(contenedorItems);
+        scrollPane.setBorder(null);
+        
         restriccion.gridy = 10;
         restriccion.gridx = 0;
         restriccion.gridheight = 1;
@@ -326,8 +334,8 @@ public class CrearFactura extends JFrame{
         restriccion.weightx = 100;
         restriccion.fill = GridBagConstraints.BOTH;
         restriccion.insets = new Insets(10, 0, 0, 10);
-        contPrincipal.add( etq_resultado, restriccion );
-
+        contPrincipal.add( scrollPane, restriccion );
+        
         etq_total = new JLabel("Total: $ 0");
         etq_total.setHorizontalAlignment( JLabel.RIGHT );
         etq_total.setFont( new Font("Arial", Font.BOLD, 20) );
@@ -491,7 +499,14 @@ public class CrearFactura extends JFrame{
         };
         btn_atras.addActionListener(eventoAtras);
         
-        
+        ActionListener eventoAddItemFactura = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                agregarItemsFactura();
+            }
+        };
+        btn_add_producto.addActionListener(eventoAddItemFactura);
+        agregarItemsFacturaUI();
     }
 
     public boolean validarNumero(String texto){
@@ -609,6 +624,53 @@ public class CrearFactura extends JFrame{
         input.setEnabled(true);
     }
     
+    public void agregarItemsFactura(){
+        String codigo = input_id_producto.getText();
+        String cantidad = input_cant_producto.getText();
+        if (!codigo.equals("") && !cantidad.equals("")) {
+            Producto producto = this.ventanaMenu.database.buscarProducto(codigo);
+            int subtotal = producto.getPrecio() * Integer.valueOf(cantidad);
+            
+            this.listaItems[this.indiceItems] = new ItemsFactura(Integer.parseInt(this.idFactura), producto.getId(), producto.getNombre(), Integer.parseInt(cantidad), subtotal);
+            this.indiceItems++;
+            this.totalFactura += subtotal;
+            agregarItemsFacturaUI();
+        }
+    }
+    
+    public void agregarItemsFacturaUI(){
+        GridBagConstraints constItems = new GridBagConstraints();
+        
+        Border borderColor = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.decode("#D5D5D5"));
+        Border borderPadding = new EmptyBorder(5,10,5,10);
+        Border borderGris = new CompoundBorder(borderColor, borderPadding);
+        
+        contenedorItems.removeAll();
+        for (int i=0; i<this.listaItems.length; i++) {
+            JLabel etq_temporal = new JLabel( (this.listaItems[i]!=null)? (this.listaItems[i].getNombreProducto()+" x "+this.listaItems[i].getCantidad()+" => $"+this.listaItems[i].getSubtotal()) : " ");
+            etq_temporal.setHorizontalAlignment( JLabel.RIGHT );
+            etq_temporal.setFont( new Font("Arial", Font.BOLD, 10) );
+            etq_temporal.setOpaque(true);
+            etq_temporal.setBackground( Color.white );
+            etq_temporal.setBorder( borderGris );
+            constItems.gridy = i;
+            constItems.gridx = 0;
+            constItems.gridheight = 1;
+            constItems.gridwidth = 1;
+            constItems.weighty = 1;
+            constItems.weightx = 1;
+            constItems.fill = GridBagConstraints.HORIZONTAL;
+            constItems.anchor = GridBagConstraints.NORTH;
+            constItems.insets = new Insets(0, 0, 0, 0);
+            contenedorItems.add(etq_temporal, constItems);
+        }
+        etq_total.setText("Total: $ "+this.totalFactura);
+        input_id_producto.setText("");
+        input_nombre_producto.setText("");
+        input_cant_producto.setText("");
+        input_id_producto.requestFocus();
+        revalidate();
+    }
     
     // Atributos
     private Persona listaClientes [];
@@ -640,4 +702,9 @@ public class CrearFactura extends JFrame{
     private JButton btn_buscar_vendedor;
     private JButton btn_add_producto;
     Menu ventanaMenu;
+    JPanel contenedorItems;
+    String idFactura;
+    ItemsFactura listaItems [];
+    int indiceItems;
+    int totalFactura;
 }

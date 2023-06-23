@@ -14,12 +14,10 @@ import javax.swing.border.LineBorder;
 public class CrearUsuario extends javax.swing.JFrame {
     
     Menu ventanaMenu;
-    Persona listaPersonas [];
     String titulo;
     
-    public CrearUsuario(Menu ventanaMenu, Persona [] listaPersonas, String titulo) {
+    public CrearUsuario(Menu ventanaMenu, String titulo) {
         this.ventanaMenu = ventanaMenu;
-        this.listaPersonas = listaPersonas;
         this.titulo = titulo;
         
         this.ventanaMenu.setVisible(false);
