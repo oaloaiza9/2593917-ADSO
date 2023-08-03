@@ -37,6 +37,7 @@
         $respuesta['respuesta'] = [
                                     'status' => false,
                                     'mesagge' => "ERROR##DATOS##POST",
+                                    'request' => $_POST
                                   ];
         echo json_encode($respuesta);
     }
