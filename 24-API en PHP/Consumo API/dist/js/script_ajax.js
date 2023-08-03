@@ -1,22 +1,30 @@
 let waitContent = null;
 let contentClients = null;
 let formInsertarUsuario = null;
+let modalCrearUsuario = null;
 
 window.onload = function(){
 	waitContent = document.getElementById("waitContent");
 	contentClients = document.getElementById("contentClients");
 	formInsertarUsuario = document.getElementById("formInsertarUsuario");
+	campo_cedula = document.getElementById("campo_cedula");
+	
+	options = {
+				backdrop: 'static',
+  				keyboard: false,
+  				focus: false
+  			  };
+	modalCrearUsuario = new bootstrap.Modal(document.getElementById('modalCrearUsuario'), options);
 
 	formInsertarUsuario.addEventListener("submit", function(event){
 		event.preventDefault();
 		crearCliente();
 	});
-	
+
 	getClientes();
 }
 
 function crearCliente(){
-	
 	let datos = new FormData(formInsertarUsuario);
 	
 	let configuracion = 	{
