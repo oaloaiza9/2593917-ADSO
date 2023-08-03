@@ -1,12 +1,15 @@
 let waitContent = null;
 let contentClients = null;
 let formInsertarUsuario = null;
-let modalCrearUsuario = null;
+let formEditarUsuario = null;
+let modalEditarUsuario = null;
+let listaClientes = null;
 
 window.onload = function(){
 	waitContent = document.getElementById("waitContent");
 	contentClients = document.getElementById("contentClients");
 	formInsertarUsuario = document.getElementById("formInsertarUsuario");
+	formEditarUsuario = document.getElementById("formEditarUsuario");
 	campo_cedula = document.getElementById("campo_cedula");
 	
 	options = {
@@ -14,14 +17,57 @@ window.onload = function(){
   				keyboard: false,
   				focus: false
   			  };
-	modalCrearUsuario = new bootstrap.Modal(document.getElementById('modalCrearUsuario'), options);
+	modalEditarUsuario = new bootstrap.Modal(document.getElementById('modalEditarUsuario'), options);
 
 	formInsertarUsuario.addEventListener("submit", function(event){
 		event.preventDefault();
 		crearCliente();
 	});
 
+	formEditarUsuario.addEventListener("submit", function(event){
+		event.preventDefault();
+		editarCliente();
+	});
+
 	getClientes();
+}
+
+function editarCliente(){
+	let datos = new FormData(formEditarUsuario);
+	
+	let configuracion = 	{
+								method: "POST",
+								headers: {
+									"Accept": "application/json",
+								},
+								body: datos,
+							};
+
+	fetch("http://localhost/ProyectoPHP/Editar.php", configuracion)
+	.then( resp => resp.json() )
+	.then( data => {
+
+		console.log(" Respuesta API: ");
+		console.log(data);
+
+		if (data.status){
+			modalEditarUsuario.hide();
+			getClientes();
+			Swal.fire({
+						title: 'EDITADO CON EXITO',
+						text: 'El usuario ha sido creado con éxito.',
+						icon: 'success',
+					});
+		}else{
+			Swal.fire({
+						title: 'NO EDITADO',
+						text: 'No se pudo editar el usuario.',
+						icon: 'error',
+					});
+		}
+
+
+	});
 }
 
 function crearCliente(){
@@ -51,6 +97,7 @@ function crearCliente(){
 			document.getElementById("campo_email").value = "";
 
 			document.getElementById("campo_cedula").focus();
+			getClientes();
 
 			Swal.fire({
 						title: 'INSERTADO CON EXITO',
@@ -74,9 +121,10 @@ function getClientes(){
 	fetch( endpointLocal )
 	.then( res => res.json() )
 	.then( data => {
-		console.log("Datos servidor:");
-		console.log(data);
+		/*console.log("Datos servidor:");
+		console.log(data);*/
 
+		listaClientes = data.registros;
 		contentClients.innerHTML = "";
 		for (var i = 0; i < data.registros.length; i++) {
 			let trHtlm = `	<tr>
@@ -87,7 +135,7 @@ function getClientes(){
 								<td> ${ data.registros[i].direccion } </td>
 								<td> ${ data.registros[i].email } </td>
 								<td class="m-0 p-1">
-									<button class="col-12 btn btn-outline-success m-0 px-2 py-1" onclick="abrirModalEditar(this)" > EDITAR </button>
+									<button class="col-12 btn btn-outline-success m-0 px-2 py-1" onclick="abrirModalEditar(${i})" > EDITAR </button>
 								</td>
 							</tr>`;
 			contentClients.innerHTML += trHtlm;
@@ -97,7 +145,13 @@ function getClientes(){
 	});
 }
 
-function abrirModalEditar(boton){
-	lista_tds = boton.parentNode.parentNode.children;
-	console.log(lista_tds);
+function abrirModalEditar(posicion){
+	document.getElementById("campo_editar_cedula").value = listaClientes[posicion].cedula;
+	document.getElementById("campo_editar_nombres").value = listaClientes[posicion].nombres;
+	document.getElementById("campo_editar_apellidos").value = listaClientes[posicion].apellidos;
+	document.getElementById("campo_editar_telefono").value = listaClientes[posicion].telefono;
+	document.getElementById("campo_editar_direccion").value = listaClientes[posicion].direccion;
+	document.getElementById("campo_editar_email").value = listaClientes[posicion].email;
+
+	modalEditarUsuario.show();
 }
