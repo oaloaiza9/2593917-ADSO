@@ -17,9 +17,9 @@
         $consulta->bindParam(':nom', $nombres);
         $consulta->bindParam(':ape', $apellidos);
         
-        $respuesta = $consulta->execute();
+        $proceso = $consulta->execute();
 
-        if( $respuesta ){
+        if( $proceso ){
             $respuesta['respuesta'] = [
                                         'status' => true,
                                         'mesagge' => "OK##Cliente##Insert",

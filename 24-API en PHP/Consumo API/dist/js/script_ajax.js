@@ -42,6 +42,29 @@ function crearCliente(){
 		console.log(" Respuesta API: ");
 		console.log(data);
 
+		if (data.status){
+			document.getElementById("campo_cedula").value = "";
+			document.getElementById("campo_nombres").value = "";
+			document.getElementById("campo_apellidos").value = "";
+			document.getElementById("campo_telefono").value = "";
+			document.getElementById("campo_direccion").value = "";
+			document.getElementById("campo_email").value = "";
+
+			document.getElementById("campo_cedula").focus();
+
+			Swal.fire({
+						title: 'INSERTADO CON EXITO',
+						text: 'El usuario ha sido creado con éxito.',
+						icon: 'success',
+					});
+		}else{
+			Swal.fire({
+						title: 'NO INSERTADO',
+						text: 'No se pudo crear el usuario. Es posible que la cedula ingresada exista de manera previa.',
+						icon: 'error',
+					});
+		}
+
 	});
 }
 
