@@ -87,7 +87,7 @@ function getClientes(){
 								<td> ${ data.registros[i].direccion } </td>
 								<td> ${ data.registros[i].email } </td>
 								<td class="m-0 p-1">
-									<button class="col-12 btn btn-outline-success m-0 px-2 py-1"> EDITAR </button>
+									<button class="col-12 btn btn-outline-success m-0 px-2 py-1" onclick="abrirModalEditar(this)" > EDITAR </button>
 								</td>
 							</tr>`;
 			contentClients.innerHTML += trHtlm;
@@ -95,4 +95,9 @@ function getClientes(){
 
 		waitContent.style.display = 'none';
 	});
+}
+
+function abrirModalEditar(boton){
+	lista_tds = boton.parentNode.parentNode.children;
+	console.log(lista_tds);
 }
