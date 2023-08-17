@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {
 
 	public function index(){
-		$this->load->view('iniciar_session');	
+		$this->load->view('iniciar_session');
 	}
 
 	public function validarIngreso(){
@@ -57,6 +57,11 @@ class Login extends CI_Controller {
 
 	public function registroUsuario(){
 		echo "Cargando vista para registrar al usuario";
+	}
+
+	public function cerrarSession(){
+		$this->session->sess_destroy();
+		redirect('Login','refresh');
 	}
 
 }
