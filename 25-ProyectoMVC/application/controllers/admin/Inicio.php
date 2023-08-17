@@ -24,6 +24,16 @@ class Inicio extends CI_Controller {
 		$this->load->view('admin/inicio', $data);
 	}
 
+	public function openCreateUser(){
+		$data['session'] = $this->session->userdata("session-mvc");
+		$this->load->view('admin/crearUsuario', $data);
+	}
+
+	public function listUsers(){
+		$data['session'] = $this->session->userdata("session-mvc");
+		$this->load->view('admin/verUsuarios', $data);
+	}
+
 }
 
 /* End of file Inicio.php */
