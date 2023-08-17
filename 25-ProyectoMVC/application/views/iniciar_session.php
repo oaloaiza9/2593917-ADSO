@@ -23,6 +23,12 @@
 						</div>
 					<?php } ?>
 
+					<?php if (isset($datosInvalidos)){ ?>
+						<div class="alert alert-danger">
+							NO EXISTE UN USUARIO CON ESOS DATOS
+						</div>
+					<?php } ?>
+
 					<form action="<?= base_url('index.php/Login/validarIngreso') ?>" method="POST">
 						<label for="campo_email" class="form-label m-0"><b>E-mail:</b></label>
 						<input class="form-control <?= (isset($valueEmail) && $valueEmail!='')? 'is-valid': ((isset($errorInData))? 'is-invalid':'') ?>" id="campo_email" type="email" name="campo_email" value="<?= (isset($valueEmail))? $valueEmail : '' ?>">
