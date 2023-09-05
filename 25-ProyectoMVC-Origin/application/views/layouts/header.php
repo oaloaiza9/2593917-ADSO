@@ -19,6 +19,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+
     <link rel="stylesheet" type="text/css" href="<?= base_url('dist/css/styles.css') ?>">
   </head>
   <body class="hold-transition sidebar-mini layout-fixed">
