@@ -1,9 +1,71 @@
 
 let tbodyPersonas = document.getElementById("tbodyPersonas");
 let listaPersonas = null;
+let formularioCrearUsuario = document.getElementById("formularioCrearUsuario");
+
+formularioCrearUsuario.addEventListener("submit", function(event){
+	event.preventDefault();
+	registrarUsuario();
+});
 
 function base_url(texto){
 	return "http://localhost/25-ProyectoMVC-Origin/index.php/"+texto;
+}
+
+function registrarUsuario(){
+	
+	let datos = new FormData( formularioCrearUsuario );
+	let configuracion = {
+							method: "POST",
+							headers: { "Accept": "application/json" },
+							body: datos,
+						};
+	fetch( base_url('admin/Usuario/insertarUsuario'), configuracion )
+	.then( resp => resp.json() )
+	.then( data => {
+
+		if (data.status && data.message=="OK##INSERT"){
+			Swal.fire({
+			  title: 'USUARIO INSERTADO',
+			  icon: 'success',
+			  text: 'Se ha creado con exito el usuario, puede ingresar al sistema usando como contraseña la cedula.',
+			  confirmButtonText: 'ENTENDIDO',
+			  confirmButtonColor: "#00A100",
+			});
+
+			document.getElementById("campo_cedula").value = "";
+			document.getElementById("campo_nombres").value = "";
+			document.getElementById("campo_apellidos").value = "";
+			document.getElementById("campo_telefono").value = "";
+			document.getElementById("campo_direccion").value = "";
+			document.getElementById("campo_email").value = "";
+			document.getElementById("campo_tipo").value = "----";
+			
+			cargarPersonas();
+		}
+
+		if (data.status==false && data.message=="ERROR##DUPLICADO"){
+			Swal.fire({
+			  title: 'ERROR DATOS DUPLICADOS',
+			  icon: 'error',
+			  text: 'Es posible que la cedula o el email, se encuentren registrados para otro usuario.',
+			  confirmButtonText: 'ENTENDIDO',
+			  confirmButtonColor: "#A10000",
+			});
+		}
+
+		if (data.status==false && data.message=="ERROR##DATOS##VACIOS"){
+			Swal.fire({
+			  title: 'ERROR DATOS VACIOS',
+			  icon: 'error',
+			  text: 'Todos los datos del formulario son obligatorios.',
+			  confirmButtonText: 'ENTENDIDO',
+			  confirmButtonColor: "#A10000",
+			});
+		}
+
+	});
+
 }
 
 function cargarPersonas(){
