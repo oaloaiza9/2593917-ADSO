@@ -6,10 +6,13 @@ import java.util.Map;
 public class Principal {
     public static void main(String[] args) {
         
+        InsertarPersona ventana = new InsertarPersona();
+        
         ConsumoAPI ejemplo = new ConsumoAPI();
         
         // GET sin datos
-        System.out.println("Consumo GET: " + ejemplo.consumoGET("http://localhost/APIenPHP/Obtener.php"));
+        String respuesta = ejemplo.consumoGET("http://localhost/APIenPHP/Obtener.php");
+        System.out.println("Consumo GET: " + respuesta);
         
         // GET con Datos
         Map<String, String> getData = new HashMap<>();
