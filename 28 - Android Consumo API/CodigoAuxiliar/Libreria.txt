@@ -1,0 +1,7 @@
+Dependencia:
+	implementation 'com.android.volley:volley:1.2.1'
+
+
+
+Permiso de uso de Internet:
+	<uses-permission android:name="android.permission.INTERNET" />

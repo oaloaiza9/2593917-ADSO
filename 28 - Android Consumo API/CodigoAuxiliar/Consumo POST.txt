@@ -1,0 +1,33 @@
+    public void consumoPostJson(View vista){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://192.168.20.31/APIenPHP/Insert.php";
+
+        StringRequest solicitud =  new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    System.out.println("El servidor POST responde OK");
+                    JSONObject jsonObject = new JSONObject(response);
+                    System.out.println(response);
+                } catch (JSONException e) {
+                    System.out.println("El servidor POST responde con un error:");
+                    System.out.println(e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("El servidor POST responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cedula", "107701");
+                
+                return params;
+            }
+        };
+
+        queue.add(solicitud);
+    }

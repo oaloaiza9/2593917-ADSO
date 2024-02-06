@@ -1,0 +1,24 @@
+    public void consumoImagen(View vista){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png";
+
+        ImageRequest solicitud = new ImageRequest(
+                url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        // Set the image in the ImageView.
+                        
+                    }
+                },
+                0, 0, null, // maxWidth, maxHeight, decodeConfig;
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("El servidor responde con un error:");
+                        System.out.println(error.getMessage());
+                    }
+                });
+
+        queue.add(solicitud);
+    }

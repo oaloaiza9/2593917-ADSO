@@ -128,11 +128,14 @@ public class InterfazCrud extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton5 = new javax.swing.JButton();
         contentPrincipal = new javax.swing.JPanel();
         etqTitulo = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tablaPersonas = new javax.swing.JTable();
         btnNueva = new javax.swing.JButton();
+
+        jButton5.setText("jButton5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,9 +193,7 @@ public class InterfazCrud extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(contentPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(contentPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,6 +211,7 @@ public class InterfazCrud extends javax.swing.JFrame {
     private javax.swing.JButton btnNueva;
     private javax.swing.JPanel contentPrincipal;
     private javax.swing.JLabel etqTitulo;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable tablaPersonas;
     // End of variables declaration//GEN-END:variables

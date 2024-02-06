@@ -1,0 +1,20 @@
+    public void consumoGetJson(View vista){
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url = "http://192.168.20.31/APIenPHP/Obtener.php";
+
+        JsonObjectRequest solicitud =  new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println("El servidor responde OK");
+                System.out.println(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("El servidor responde con un error:");
+                System.out.println(error.getMessage());
+            }
+        });
+
+        queue.add(solicitud);
+    }
