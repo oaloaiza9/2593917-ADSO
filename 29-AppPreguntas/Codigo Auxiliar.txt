@@ -1,4 +1,6 @@
-
+|-----------------------------------------------------------------|
+	Obtener datos archivo de configuracion
+|-----------------------------------------------------------------|
 	// Carga el archivo properties
 	Resources res = contexto.getResources();
 	InputStream inputStream = res.openRawResource(R.raw.config);
@@ -12,3 +14,10 @@
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+
+|-----------------------------------------------------------------|
+	Persistencia de datos Local
+|-----------------------------------------------------------------|
+
+SharedPreferences archivo = getSharedPreferences("app_preguntas", Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = archivo.edit();
