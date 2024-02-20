@@ -1,0 +1,14 @@
+
+	// Carga el archivo properties
+	Resources res = contexto.getResources();
+	InputStream inputStream = res.openRawResource(R.raw.config);
+
+	// Lee las propiedades del archivo
+	try {
+	    Properties properties = new Properties();
+	    properties.load(inputStream);
+
+	    apiHost = properties.getProperty("api_host");
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
