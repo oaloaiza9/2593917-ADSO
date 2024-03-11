@@ -1,0 +1,9 @@
+implementation 'androidx.recyclerview:recyclerview:+'
+
+
+
+onCreateViewHolder:
+------------------------------------------------------
+
+	View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contacto, parent, false);
+	return new ViewHolder(vista);
