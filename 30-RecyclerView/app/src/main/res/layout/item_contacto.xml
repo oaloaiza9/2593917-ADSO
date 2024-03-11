@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/imgContacto"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/nombreContacto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXX XXXXXXXX"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edad:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/edadContacto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="XX"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Genero:"
+                        android:textSize="18sp"
+                        android:paddingLeft="10dp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/generoContacto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Direccion:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/direccionContacto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XXXXXXXXXX"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="10dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Telefono:"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/telefonoContacto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XXXXXXXXXX"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="10dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnDetalle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:clickable="true"
+            app:backgroundTint="#00FF00"
+            app:srcCompat="@drawable/ic_detalle"
+            android:layout_gravity="bottom|right"
+            app:fabCustomSize="35dp"
+            app:tint="#009900"
+            />
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>
